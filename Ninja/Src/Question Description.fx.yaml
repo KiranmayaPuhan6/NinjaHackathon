@@ -1,0 +1,540 @@
+"'Question Description' As screen":
+    OnVisible: |-
+        =Set(showBurgerMenu, false);
+        Set(apply2hackathon, false);
+        Set(notTC, false);
+        Set(showApplyAs, If(LookUp(Info, 'Team Captain' = profileMail || 'Team Member 1' = profileMail || 'Team Member 2' = profileMail || 'Team Member 3' = profileMail || 'Team Member 4' = profileMail || 'Team Member 5' = profileMail || 'Team Member 6' = profileMail || 'Team Member 7' = profileMail || 'Mentor 1' = profileMail || 'Mentor 2' = profileMail, true), false, true));
+        
+        Set(showApplied, If(showApplyAs, false, true));
+
+    Chat As button:
+        Fill: =RGBA(180, 30, 38, 1)
+        HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+        OnSelect: |-
+            =//UpdateContext({Link:Concatenate("https://teams.microsoft.com/l/chat/0/0?users=", label.Creator)});
+            //Launch(Link)
+            Launch(Concatenate("https://teams.microsoft.com/l/chat/0/0?users=", label.Creator))
+        Text: ="Chat with Owner"
+        Width: =210
+        X: =1051
+        Y: =537
+        ZIndex: =1
+
+    Label9_2 As label:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Height: =220
+        Overflow: =Overflow.Scroll
+        Size: =18
+        Text: =label.'Question Description'
+        Width: =1156
+        X: =105
+        Y: =288
+        ZIndex: =2
+
+    Label10_1 As label:
+        Font: =Font.Arial
+        Text: =label.Category
+        X: =829
+        Y: =219
+        ZIndex: =3
+
+    Label11_10 As label:
+        Text: =label.'Sub-Category'
+        X: =1111
+        Y: =219
+        ZIndex: =4
+
+    Label12 As label:
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Bold
+        Text: ="Category"
+        Width: =106
+        X: =723
+        Y: =219
+        ZIndex: =5
+
+    Label13 As label:
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Bold
+        Text: ="Sub Category"
+        Width: =132
+        X: =979
+        Y: =219
+        ZIndex: =6
+
+    Label15_1 As label:
+        Align: =Align.Center
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Semibold
+        Height: =75
+        Size: =24
+        Text: =label.Title
+        Width: =1006
+        X: =180
+        Y: =117
+        ZIndex: =7
+
+    Label16_1 As label:
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Bold
+        Size: =18
+        Text: ="Description"
+        X: =106
+        Y: =219
+        ZIndex: =8
+
+    Button2_2 As button:
+        DisplayMode: =If(LookUp(QuestionSubmission, TeamID = tID && QuestionID = label.ID, true), DisplayMode.Disabled)
+        Fill: =RGBA(180, 30, 38, 1)
+        HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+        OnSelect: |
+            =If(
+                showApplyAs, Set(apply2hackathon, true) && Set(notTC, false),
+                LookUp(Info, 'Team Captain' = profileMail, true), Navigate('Question Submission'),
+                Set(apply2hackathon, false) && Set(notTC, true)
+            );
+        Text: ="Upload Submission"
+        Visible: =isTeamCaptain
+        Width: =210
+        X: =1051
+        Y: =592
+        ZIndex: =9
+
+    Label20_2 As label:
+        Height: =33
+        Text: =label.'Dataset-Link'
+        X: =265
+        Y: =592
+        ZIndex: =10
+
+    Label21 As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Semibold
+        Size: =14
+        Text: ="PDF"
+        X: =105
+        Y: =665
+        ZIndex: =11
+
+    Form4 As form:
+        DataSource: =QuestionList
+        DefaultMode: =FormMode.View
+        Height: =114
+        Item: =First(QuestionList)
+        Width: =314
+        X: =255
+        Y: =652
+        ZIndex: =12
+
+        Attachments_DataCard3 As typedDataCard.attachmentsEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="{Attachments}"
+            Default: =ThisItem.Attachments
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@QuestionList],DataSourceInfo.DisplayName,"{Attachments}")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =107
+            Required: =false
+            Update: =DataCardValue20.Attachments
+            Width: =312
+            X: =0
+            Y: =0
+            ZIndex: =20
+
+            DataCardKey20 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue20 As attachments:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DisplayMode: =Parent.DisplayMode
+                Height: =85
+                IsInDataCard: =true
+                ItemHoverColor: =Color.Blue
+                Items: =Parent.Default
+                MaxAttachments: =1
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Tooltip: =Parent.DisplayName
+                Width: =312
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage20 As label:
+                Height: =38
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =57
+                ZIndex: =3
+
+            StarVisible20 As label:
+                Align: =Align.Center
+                Height: =DataCardKey20.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey20.Y
+                ZIndex: =4
+
+    Button4_2 As button:
+        Fill: =RGBA(57, 86, 165, 1)
+        FontWeight: =FontWeight.Normal
+        HoverFill: =ColorFade(RGBA(80, 80, 165, 1), -20%)
+        OnSelect: |
+            =Launch(label.'YT-Link')
+        Text: ="Click Here"
+        Visible: =If(IsBlank(label.'YT-Link'),false,true)
+        Width: =150
+        X: =256
+        Y: =537
+        ZIndex: =13
+
+    Button4_3 As button:
+        Fill: =RGBA(57, 86, 165, 1)
+        FontWeight: =FontWeight.Normal
+        HoverFill: =ColorFade(RGBA(80, 80, 165, 1), -20%)
+        OnSelect: |
+            =Launch(label.'Dataset-Link')
+        Text: ="Click Here"
+        Visible: =If(IsBlank(label.'Dataset-Link'),false,true)
+        Width: =150
+        X: =256
+        Y: =592
+        ZIndex: =14
+
+    Icon8_5 As icon.BackArrow:
+        Height: =50
+        Icon: =Icon.BackArrow
+        OnSelect: =Navigate('Question List')
+        Width: =50
+        X: =48
+        Y: =133
+        ZIndex: =15
+
+    Label19 As label:
+        Align: =Align.Center
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Semibold
+        Text: ="Youtube Link"
+        X: =106
+        Y: =537
+        ZIndex: =16
+
+    Label19_1 As label:
+        Align: =Align.Center
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Semibold
+        Text: ="Dataset Link"
+        X: =106
+        Y: =592
+        ZIndex: =17
+
+    "'Not TC PopUp' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =38
+
+        Rectangle2_8 As rectangle:
+            Fill: =RGBA(179, 179, 179, 0.7)
+            Height: =768
+            Visible: =notTC
+            Width: =1366
+            ZIndex: =37
+
+        Rectangle7_4 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =263
+            Visible: =notTC
+            Width: =478
+            X: =443
+            Y: =248
+            ZIndex: =38
+
+        Label18_4 As label:
+            Align: =Align.Center
+            Height: =44
+            Size: =16
+            Text: ="You have to be Team Captain to submit a solution"
+            Visible: =notTC
+            Width: =435
+            X: =465
+            Y: =299
+            ZIndex: =39
+
+        Button2_7 As button:
+            Fill: =RGBA(25, 140, 10, 1)
+            Height: =98
+            OnSelect: =Set(notTC, false);
+            Text: ="Okay"
+            Visible: =notTC
+            X: =602
+            Y: =392
+            ZIndex: =40
+
+        Icon7_4 As icon.Cancel:
+            Height: =38
+            Icon: =Icon.Cancel
+            OnSelect: =Set(notTC, false);
+            Visible: =notTC
+            Width: =42
+            X: =878
+            Y: =251
+            ZIndex: =41
+
+    "'Apply to Hackathon PopUp' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =46
+
+        Rectangle2_7 As rectangle:
+            Fill: =RGBA(179, 179, 179, 0.7)
+            Height: =768
+            Visible: =apply2hackathon
+            Width: =1366
+            ZIndex: =32
+
+        Rectangle7_3 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =263
+            Visible: =apply2hackathon
+            Width: =478
+            X: =443
+            Y: =248
+            ZIndex: =33
+
+        Label18_3 As label:
+            Align: =Align.Center
+            Height: =56
+            Size: =16
+            Text: ="You have to apply to the hackathon first before you submit a solution"
+            Visible: =apply2hackathon
+            Width: =435
+            X: =465
+            Y: =299
+            ZIndex: =34
+
+        Button2_6 As button:
+            Fill: =RGBA(180, 30, 38, 1)
+            Height: =98
+            HoverFill: =ColorFade(RGBA(15, 140, 15, 1), -20%)
+            OnSelect: |-
+                =Set(apply2hackathon, false);
+                Navigate(Registration);
+            Text: ="Register Now"
+            Visible: =apply2hackathon
+            X: =619
+            Y: =391
+            ZIndex: =35
+
+        Icon7_3 As icon.Cancel:
+            Height: =38
+            Icon: =Icon.Cancel
+            OnSelect: =Set(apply2hackathon, false);
+            Visible: =apply2hackathon
+            Width: =42
+            X: =878
+            Y: =251
+            ZIndex: =36
+
+    "'Burger Menu_5' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =50
+
+        Rectangle9_5 As rectangle:
+            Fill: =RGBA(128, 128, 128, 0.7)
+            Height: =668
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =1366
+            Y: =100
+            ZIndex: =24
+
+        Rectangle10_5 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Height: =668
+            Visible: =showBurgerMenu
+            Width: =305
+            Y: =99
+            ZIndex: =25
+
+        Button13_23 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate(Home)
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Home"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =123
+            ZIndex: =26
+
+        Button13_22 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                If(LookUp(ParticipantList,User().Email=Title,true)||LookUp(Mentor,User().Email=Title,true),Navigate(Profile),Navigate(Registration))
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Profile"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =178
+            ZIndex: =27
+
+        Button13_21 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Question List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Problem Statements"
+            Visible: =showBurgerMenu
+            Width: =251
+            X: =27
+            Y: =233
+            ZIndex: =28
+
+        Button13_20 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Submitted List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Submissions"
+            Visible: |-
+                =//showBurgerMenu
+                If(LookUp(ParticipantList,User().Email=Title,true)||LookUp(Mentor,User().Email=Title,true),showBurgerMenu)
+            Width: =148
+            X: =69
+            Y: =292
+            ZIndex: =29
+
+    Navbar_5 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =53
+
+        Rectangle4_5 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Width: =1366
+            ZIndex: =18
+
+        Image3_5 As image:
+            Height: =80
+            Image: =Office365Users.UserPhotoV2(Office365Users.MyProfile().Id)
+            OnSelect: =Navigate(Profile)
+            RadiusBottomLeft: =80
+            RadiusBottomRight: =80
+            RadiusTopLeft: =80
+            RadiusTopRight: =80
+            Width: =80
+            X: =1246
+            Y: =10
+            ZIndex: =19
+
+        Label14_6 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =49
+            Size: =16
+            Text: =Office365Users.MyProfile().DisplayName
+            Width: =145
+            X: =1030
+            ZIndex: =20
+
+        Label15_6 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =45
+            Size: =14
+            Text: =Office365Users.MyProfile().JobTitle
+            Width: =265
+            X: =970
+            Y: =45
+            ZIndex: =21
+
+        Image1_5 As image:
+            Image: =Zensar_logo_wht_png
+            OnSelect: =Navigate(Home)
+            Width: =170
+            X: =135
+            ZIndex: =22
+
+        Icon10_5 As icon.Hamburger:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Hamburger
+            OnSelect: =Set(showBurgerMenu, true)
+            Visible: =!showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =23
+
+        Icon11_5 As icon.Cancel:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Cancel
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =30
+
+        Button5_7 As button:
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =99
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+            OnSelect: =If(LookUp(ParticipantList,User().Email=Title,true)||LookUp(Mentor,User().Email=Title,true),Navigate(Profile),Navigate(Registration));
+            Text: ="Button"
+            Width: =92
+            X: =1240
+            ZIndex: =31
+

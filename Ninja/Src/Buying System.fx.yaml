@@ -1,0 +1,627 @@
+"'Buying System' As screen":
+
+    Label26_2 As label:
+        Height: =60
+        Text: |-
+            =Concatenate("Selected mentor 1 : ", Office365Users.UserProfile(m1).DisplayName)
+        Width: =422
+        X: =904
+        Y: =178
+        ZIndex: =1
+
+    Label26_3 As label:
+        Height: =60
+        Text: |-
+            =Concatenate("Selected mentor 2 : ", Office365Users.UserProfile(m2).DisplayName)
+        Width: =422
+        X: =904
+        Y: =238
+        ZIndex: =2
+
+    TextInput3_1 As text:
+        Default: =""
+        Height: =50
+        HintText: ="Search Mentor's Name"
+        X: =219
+        Y: =212
+        ZIndex: =3
+
+    Label25_3 As label:
+        Align: =Align.Center
+        Height: =55
+        Text: ="Search"
+        X: =69
+        Y: =210
+        ZIndex: =4
+
+    "Gallery3 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        BorderThickness: =1
+        Height: =448
+        Items: =Search(Filter(Mentor, !Selected), TextInput3_1.Text, "DisplayName")
+        Layout: =Layout.Vertical
+        TemplatePadding: =0
+        TemplateSize: =162
+        Width: =1296
+        WrapCount: =2
+        X: =36
+        Y: =318
+        ZIndex: =5
+
+        Image4 As image:
+            BorderThickness: =2
+            Height: =128
+            Image: =Office365Users.UserPhotoV2(ThisItem.Title)
+            OnSelect: =Select(Parent)
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =128
+            X: =16
+            Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+            ZIndex: =1
+
+        Title3 As label:
+            Height: =Self.Size * 1.8
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =Office365Users.UserProfile(ThisItem.Title).DisplayName
+            VerticalAlign: =VerticalAlign.Top
+            Width: =Parent.TemplateWidth - Image4.Width - 104
+            X: =Image4.X + Image4.Width + 24
+            Y: =44
+            ZIndex: =2
+
+        Subtitle3 As label:
+            FontWeight: =FontWeight.Bold
+            Height: =27
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: =Concatenate("Buy this mentor's help for ", Round(ThisItem.Points,2), " points")
+            VerticalAlign: =VerticalAlign.Top
+            Width: =416
+            X: =168
+            Y: =Title3.Y + Title3.Height + 4
+            ZIndex: =3
+
+        NextArrow2 As icon.ChevronRight:
+            AccessibleLabel: =Self.Tooltip
+            Height: =60
+            Icon: =Icon.ChevronRight
+            OnSelect: |-
+                =Set(selectedMentor, ThisItem);
+                Set(showMentorPopUp, true);
+            PaddingBottom: =10
+            PaddingLeft: =10
+            PaddingRight: =10
+            PaddingTop: =10
+            TabIndex: =0
+            Tooltip: ="View item details"
+            Width: =60
+            X: =Parent.TemplateWidth - Self.Width - 5
+            Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+            ZIndex: =4
+
+        Separator4 As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+    Label4_7 As label:
+        Align: =Align.Center
+        Font: =Font.Arial
+        Height: =56
+        Size: =24
+        Text: ="Buy a mentor's help"
+        Width: =315
+        X: =525
+        Y: =122
+        ZIndex: =6
+
+    Icon8_11 As icon.BackArrow:
+        Height: =50
+        Icon: =Icon.BackArrow
+        OnSelect: =Navigate(Team)
+        Width: =50
+        X: =48
+        Y: =133
+        ZIndex: =15
+
+    Label25 As label:
+        FontWeight: =FontWeight.Bold
+        Height: =43
+        Size: =15
+        Text: |-
+            =Concatenate("Your Points:",teamPoints)
+        Width: =183
+        X: =562
+        Y: =214
+        ZIndex: =16
+
+    "'Burger Menu_10' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =23
+
+        Rectangle9_10 As rectangle:
+            Fill: =RGBA(128, 128, 128, 0.7)
+            Height: =668
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =1366
+            Y: =100
+            ZIndex: =29
+
+        Rectangle10_10 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Height: =668
+            Visible: =showBurgerMenu
+            Width: =305
+            Y: =99
+            ZIndex: =30
+
+        Button13_41 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate(Home)
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Home"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =123
+            ZIndex: =31
+
+        Button13_40 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate(Profile)
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Profile"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =178
+            ZIndex: =32
+
+        Button13_39 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Question List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Problem Statements"
+            Visible: =showBurgerMenu
+            Width: =251
+            X: =27
+            Y: =233
+            ZIndex: =33
+
+        Button13_36 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Submitted List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Submissions"
+            Visible: =showBurgerMenu
+            Width: =148
+            X: =69
+            Y: =292
+            ZIndex: =34
+
+    Navbar_10 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =26
+
+        Rectangle4_10 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Width: =1366
+            ZIndex: =7
+
+        Image3_12 As image:
+            Height: =80
+            Image: =Office365Users.UserPhotoV2(Office365Users.MyProfile().Id)
+            OnSelect: =Navigate(Profile)
+            RadiusBottomLeft: =80
+            RadiusBottomRight: =80
+            RadiusTopLeft: =80
+            RadiusTopRight: =80
+            Width: =80
+            X: =1246
+            Y: =10
+            ZIndex: =8
+
+        Label14_10 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =49
+            Size: =16
+            Text: =Office365Users.MyProfile().DisplayName
+            Width: =145
+            X: =1030
+            ZIndex: =9
+
+        Label15_11 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =45
+            Size: =14
+            Text: =Office365Users.MyProfile().JobTitle
+            Width: =265
+            X: =970
+            Y: =45
+            ZIndex: =10
+
+        Image1_10 As image:
+            Image: =Zensar_logo_wht_png
+            OnSelect: =Navigate(Home)
+            Width: =170
+            X: =135
+            ZIndex: =11
+
+        Icon10_10 As icon.Hamburger:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Hamburger
+            OnSelect: =Set(showBurgerMenu, true)
+            Visible: =!showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =12
+
+        Icon11_10 As icon.Cancel:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Cancel
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =13
+
+        Button5_11 As button:
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =99
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+            OnSelect: =Navigate(Profile)
+            Text: ="Button"
+            Width: =92
+            X: =1240
+            ZIndex: =14
+
+    successfulMentorBuyPopUp_1 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =38
+
+        Rectangle13_2 As rectangle:
+            Fill: =RGBA(128, 128, 128, 0.7)
+            Height: =768
+            Visible: =successfulMentorBuy
+            Width: =1366
+            ZIndex: =43
+
+        Rectangle14_2 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =266
+            Visible: =successfulMentorBuy
+            Width: =392
+            X: =487
+            Y: =251
+            ZIndex: =44
+
+        Label27_2 As label:
+            Align: =Align.Center
+            Height: =93
+            Size: =18
+            Text: ="You have bought this mentor's help. Happy Hackathoning"
+            Visible: =successfulMentorBuy
+            Width: =335
+            X: =518
+            Y: =273
+            ZIndex: =45
+
+        Button15_2 As button:
+            Fill: =RGBA(180, 30, 38, 1)
+            OnSelect: |-
+                =Office365Outlook.SendEmail(Office365Users.UserProfile(selectedMentor.Title).Mail,"Assigned in a Team in Global Hackathon",Concatenate("Hi ",Office365Users.UserProfile(selectedMentor.Title).DisplayName,
+                ",
+                You have been selected by Team ",LookUp(Info,User().Email='Team Captain',Title)," led by ",User().FullName," for mentorship."));
+                Set(successfulMentorBuy, false);
+                Set(showMentorPopUp, false);
+            Text: ="Okay"
+            Visible: =successfulMentorBuy
+            X: =602
+            Y: =423
+            ZIndex: =46
+
+    notEnoughPointsPopUp_1 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =43
+
+        Rectangle13_3 As rectangle:
+            Fill: =RGBA(128, 128, 128, 0.7)
+            Height: =768
+            Visible: =notEnoughPoints
+            Width: =1366
+            ZIndex: =39
+
+        Rectangle14_3 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =266
+            Visible: =notEnoughPoints
+            Width: =392
+            X: =487
+            Y: =251
+            ZIndex: =40
+
+        Label27_3 As label:
+            Align: =Align.Center
+            Height: =115
+            Size: =18
+            Text: |-
+                ="You don't have enough points to buy this mentor!
+                Go to profile to get more points
+                "
+            Visible: =notEnoughPoints
+            Width: =335
+            X: =518
+            Y: =273
+            ZIndex: =41
+
+        Button15_3 As button:
+            OnSelect: |-
+                =Set(notEnoughPoints, false);
+                Set(showMentorPopUp, false);
+            Text: ="Okay"
+            Visible: =notEnoughPoints
+            Width: =143
+            X: =602
+            Y: =423
+            ZIndex: =42
+
+    mentorPopUp_2 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =47
+
+        Rectangle1_2 As rectangle:
+            Fill: =RGBA(128, 128, 128, 0.7)
+            Height: =768
+            Visible: =showMentorPopUp
+            Width: =1366
+            ZIndex: =17
+
+        Rectangle5_2 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =576
+            Visible: =showMentorPopUp
+            Width: =904
+            X: =271
+            Y: =142
+            ZIndex: =18
+
+        Label24_2 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =44
+            Size: =18
+            Text: |-
+                =Concatenate("Your points: ", teamPoints)
+            Visible: =showMentorPopUp
+            Width: =240
+            X: =837
+            Y: =558
+            ZIndex: =19
+
+        Label10_4 As label:
+            Height: =45
+            Size: =18
+            Text: |-
+                =Concatenate("Name : ", Office365Users.UserProfile(selectedMentor.Title).DisplayName)
+            Visible: =showMentorPopUp
+            Width: =702
+            X: =305
+            Y: =178
+            ZIndex: =20
+
+        Button14_2 As button:
+            Fill: =RGBA(180, 30, 38, 1)
+            Height: =45
+            HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+            OnSelect: |+
+                =If(
+                    teamPoints >= Round(selectedMentor.Points,2),
+                    Patch(Info, LookUp(Info, 'Team Captain' = profileMail), If(IsBlank(m1), {'Mentor 1': selectedMentor.Title}, 
+                    {'Mentor 2': selectedMentor.Title}), 
+                    {Points: (teamPoints - selectedMentor.Points)})
+                );
+                
+                If(
+                    teamPoints >= Round(selectedMentor.Points,2),
+                    Patch(Mentor, LookUp(Mentor, selectedMentor.Title = Title), {Selected : true})
+                );
+                
+                If(
+                    teamPoints >= Round(selectedMentor.Points,2), 
+                    If(IsBlank(m1), Set(m1, selectedMentor.Title), Set(m2, selectedMentor.Title)) && 
+                    Set(teamPoints, (teamPoints - selectedMentor.Points)) &&
+                    Set(successfulMentorBuy, true), Set(notEnoughPoints, true)
+                );
+                
+            Text: ="Buy Mentor's Help"
+            Visible: =showMentorPopUp
+            Width: =197
+            X: =584
+            Y: =651
+            ZIndex: =21
+
+        Icon8_10 As icon.Cancel:
+            Height: =45
+            Icon: =Icon.Cancel
+            OnSelect: =Set(showMentorPopUp, false)
+            Visible: =showMentorPopUp
+            Width: =54
+            X: =1121
+            Y: =148
+            ZIndex: =22
+
+        Label22_14 As label:
+            Height: =45
+            Size: =18
+            Text: |-
+                =Concatenate("Experience (in years) :", selectedMentor.Experience)
+            Visible: =showMentorPopUp
+            Width: =702
+            X: =305
+            Y: =239
+            ZIndex: =23
+
+        Label22_13 As label:
+            Height: =45
+            Size: =18
+            Text: |-
+                =Concatenate("Domain :", selectedMentor.Domain)
+            Visible: =showMentorPopUp
+            Width: =702
+            X: =305
+            Y: =301
+            ZIndex: =24
+
+        Label22_12 As label:
+            Height: =45
+            Size: =18
+            Text: |-
+                =Concatenate("Area of Expertise : ", selectedMentor.AreaOfExpertise)
+            Visible: =showMentorPopUp
+            Width: =702
+            X: =305
+            Y: =366
+            ZIndex: =25
+
+        Label25_4 As label:
+            FontWeight: =FontWeight.Bold
+            Size: =18
+            Text: |-
+                =Concatenate("Mentor's price : ", Round(selectedMentor.Points,2))
+            Visible: =showMentorPopUp
+            Width: =264
+            X: =305
+            Y: =554
+            ZIndex: =26
+
+        Label22_11 As label:
+            Height: =45
+            Size: =18
+            Text: |-
+                =Concatenate("Area of Interest : ", selectedMentor.AreaOfInterest)
+            Visible: =showMentorPopUp
+            Width: =702
+            X: =305
+            Y: =426
+            ZIndex: =27
+
+        Label22_10 As label:
+            Height: =57
+            OnSelect: =
+            Overflow: =
+            Size: =18
+            Text: |-
+                =Concatenate("LinkedIn Profile : ")
+            Visible: =showMentorPopUp
+            Width: =213
+            X: =305
+            Y: =471
+            ZIndex: =28
+
+        Icon8 As icon.Link:
+            Height: =39
+            Icon: =Icon.Link
+            OnSelect: =If(IsBlank(selectedMentor.LinkedInProfile),Notify(Concatenate(Office365Users.UserProfile(selectedMentor.Title).DisplayName," has no LinkedIn account")),Launch(selectedMentor.LinkedInProfile))
+            Visible: =showMentorPopUp
+            Width: =32
+            X: =518
+            Y: =478
+            ZIndex: =35
+
+        Label30 As label:
+            Height: =38
+            Size: =18
+            Text: |-
+                =Concatenate("IPs Won : ",If(LookUp(Mentor,Title=Office365Users.UserProfile(selectedMentor.Title).Mail,IPWon),"Yes","No"))
+            Visible: =showMentorPopUp
+            Width: =182
+            X: =746
+            Y: =181
+            ZIndex: =36
+
+        Label33 As label:
+            Height: =42
+            Size: =18
+            Text: |-
+                =Concatenate("Participated in Hackathon : ",If(LookUp(Mentor,Title=Office365Users.UserProfile(selectedMentor.Title).Mail,AsMentor),"Yes","No"))
+            Visible: =showMentorPopUp
+            Width: =375
+            X: =746
+            Y: =237
+            ZIndex: =37
+
+        Label34 As label:
+            Height: =37
+            Size: =18
+            Text: |-
+                =Concatenate("Mentored in Hackathon before : ",If(LookUp(Mentor,Title=Office365Users.UserProfile(selectedMentor.Title).Mail,HakathonParticipation),"Yes","No"))
+            Visible: =showMentorPopUp
+            Width: =417
+            X: =745
+            Y: =300
+            ZIndex: =38
+

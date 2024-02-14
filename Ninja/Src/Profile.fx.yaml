@@ -1,0 +1,461 @@
+Profile As screen:
+    OnVisible: |
+        =Set(showBurgerMenu, false);
+        Set(profileMail, Office365Users.MyProfile().Mail);
+        
+        Set(TeamInformation, LookUp(
+            Info, 
+            'Team Captain' = profileMail || 
+            'Team Member 1' = profileMail || 
+            'Team Member 2' = profileMail || 
+            'Team Member 3' = profileMail ||
+            'Team Member 4' = profileMail || 
+            'Team Member 5' = profileMail ||
+            'Team Member 6' = profileMail ||
+            'Team Member 7' = profileMail ||
+            'Mentor 1' = profileMail ||
+            'Mentor 2' = profileMail
+            ));
+        
+        Set(tID, TeamInformation.ID);
+        Set(teamPoints, TeamInformation.Points);
+        
+        Set(showApplyAs, If(LookUp(Info, 'Team Captain' = profileMail || 'Team Member 1' = profileMail || 'Team Member 2' = profileMail || 'Team Member 3' = profileMail || 'Team Member 4' = profileMail || 'Team Member 5' = profileMail || 'Team Member 6' = profileMail || 'Team Member 7' = profileMail || 'Mentor 1' = profileMail || 'Mentor 2' = profileMail, true), false, true));
+        
+        Set(MentorApply, If(LookUp(Mentor, Title = profileMail, true), true, false));
+        Set(MemberApply, If(LookUp(ParticipantList, User().Email=Title, ParticiptionRole)="Team Member", true, false));
+        
+        Set(showApplied, If(showApplyAs, false, true));
+        
+        If(LookUp(Info, 'Team Captain' = profileMail, true), Set(showManageTeam, true), Set(showManageTeam, false));
+
+    Button9 As button:
+        Fill: =RGBA(180, 30, 38, 1)
+        HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+        OnSelect: =Navigate('Mentor Profile')
+        Text: ="View your details"
+        Visible: =MentorApply
+        Width: =227
+        X: =141
+        Y: =235
+        ZIndex: =1
+
+    Button10 As button:
+        DisplayMode: |
+            =If(showManageTeam, DisplayMode.Edit, DisplayMode.Disabled)
+        Fill: =RGBA(180, 30, 38, 1)
+        HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+        OnSelect: |
+            =Navigate(Activity)
+        Text: ="Get more points"
+        Visible: =If(LookUp(ActivityDetailsList,Email=Office365Users.MyProfile().Mail,true) || MentorApply || !isTeamCaptain,false,true)
+        Width: =200
+        X: =1046
+        Y: =233
+        ZIndex: =2
+
+    Button7 As button:
+        DisplayMode: =DisplayMode.Disabled
+        Height: =350
+        Text: ="You have not been selected in a team yet"
+        Visible: =(MentorApply || MemberApply) && showApplyAs 
+        Width: =651
+        X: =595
+        Y: =332
+        ZIndex: =3
+
+    Applied As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =10
+
+        Button8 As button:
+            Fill: =RGBA(180, 30, 38, 1)
+            Height: =350
+            HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+            OnSelect: =Navigate(Team)
+            Text: |-
+                ="View Team
+                "
+            Visible: |-
+                =/*If(LookUp(Info, 'Team Captain' = Office365Users.MyProfile().Mail || 'Team Member 1' = Office365Users.MyProfile().Mail || 'Team Member 2' = Office365Users.MyProfile().Mail, true), true, false)*/
+                If(MentorApply && showApplyAs, false, showApplied)
+            Width: =350
+            X: =521
+            Y: =332
+            ZIndex: =20
+
+        Button8_1 As button:
+            Fill: =RGBA(180, 30, 38, 1)
+            Height: =350
+            HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+            OnSelect: =Navigate('Submitted List')
+            Text: |-
+                ="View Submissions
+                "
+            Visible: |-
+                =/*If(LookUp(Info, 'Team Captain' = Office365Users.MyProfile().Mail || 'Team Member 1' = Office365Users.MyProfile().Mail || 'Team Member 2' = Office365Users.MyProfile().Mail, true), true, false)*/
+                If(MentorApply && showApplyAs, false, showApplied)
+            Width: =350
+            X: =896
+            Y: =332
+            ZIndex: =21
+
+    Button6 As button:
+        Fill: =RGBA(180, 30, 38, 1)
+        Font: =Font.Arial
+        Height: =350
+        HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+        OnSelect: =Navigate('Question List')
+        Text: |-
+            ="View problem statements
+            "
+        Width: =350
+        X: =141
+        Y: =332
+        ZIndex: =19
+
+    Button11 As button:
+        BorderThickness: =1
+        Fill: =RGBA(180, 30, 38, 1)
+        Font: =Font.Arial
+        Height: =350
+        HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+        OnSelect: =Navigate('Team Builder Screen')
+        Text: ="Create your Team"
+        Visible: |-
+            =/*If(LookUp(Info, 'Team Captain' = Office365Users.MyProfile().Mail || 'Team Member 1' = Office365Users.MyProfile().Mail || 'Team Member 2' = Office365Users.MyProfile().Mail, true), false, true)*/
+            showApplyAs && (!MentorApply && !MemberApply)
+        Width: =647
+        X: =599
+        Y: =332
+        ZIndex: =22
+
+    Label4 As label:
+        Align: =Align.Center
+        Font: =Font.Arial
+        Height: =59
+        Size: =24
+        Text: =If(MentorApply ,"Your Profile","User Profile")
+        Width: =257
+        X: =554
+        Y: =218
+        ZIndex: =24
+
+    Label23 As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Bold
+        Size: =15
+        Text: |-
+            =Concatenate("Points: ", teamPoints)
+        Visible: |-
+            =
+            If(MentorApply || !showApplied,false,true)
+        X: =896
+        Y: =237
+        ZIndex: =25
+
+    "'Burger Menu' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =32
+
+        Rectangle9 As rectangle:
+            Fill: =RGBA(128, 128, 128, 0.7)
+            Height: =668
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =1366
+            Y: =100
+            ZIndex: =27
+
+        Rectangle10 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Height: =668
+            Visible: =showBurgerMenu
+            Width: =305
+            Y: =99
+            ZIndex: =28
+
+        Button13 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate(Home)
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Home"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =123
+            ZIndex: =29
+
+        Button13_2 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate(Profile)
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Profile"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =178
+            ZIndex: =30
+
+        Button13_3 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Question List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Problem Statements"
+            Visible: =showBurgerMenu
+            Width: =251
+            X: =27
+            Y: =233
+            ZIndex: =31
+
+        Button13_1 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Submitted List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Submissions"
+            Visible: =showBurgerMenu
+            Width: =148
+            X: =69
+            Y: =292
+            ZIndex: =32
+
+    "'Progress bar_4' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =33
+
+        Circle1_19 As circle:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderThickness: =4
+            Fill: =If(LookUp(Info, 'Team Captain' = profileMail || 'Team Member 1' = profileMail || 'Team Member 2' = profileMail || 'Team Member 3' = profileMail || 'Team Member 4' = profileMail || 'Team Member 5' = profileMail || 'Team Member 6' = profileMail || 'Team Member 7' = profileMail || 'Mentor 1' = profileMail || 'Mentor 2' = profileMail, true),RGBA(25, 140, 10, 1), RGBA(192, 192, 179, 1))
+            Height: =50
+            OnSelect: =Navigate(Profile)
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =50
+            X: =156
+            Y: =133
+            ZIndex: =4
+
+        Label22_19 As label:
+            Font: =Font.Arial
+            Height: =45
+            OnSelect: =
+            Text: ="Apply"
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =80
+            X: =233
+            Y: =133
+            ZIndex: =5
+
+        Icon8_14 As icon.ArrowRight:
+            Color: =RGBA(16, 0, 93, 1)
+            Height: =50
+            Icon: =Icon.ArrowRight
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =69
+            X: =314
+            Y: =130
+            ZIndex: =6
+
+        Circle1_18 As circle:
+            Fill: =If(LookUp(Info, 'Team Captain' = profileMail || 'Team Member 1' = profileMail || 'Team Member 2' = profileMail || 'Team Member 3' = profileMail || 'Team Member 4' = profileMail || 'Team Member 5' = profileMail || 'Team Member 6' = profileMail || 'Team Member 7' = profileMail || 'Mentor 1' = profileMail || 'Mentor 2' = profileMail, true),RGBA(25, 140, 10, 1), RGBA(192, 192, 179, 1))
+            Height: =50
+            OnSelect: =If(isTeamCaptain,Navigate('Manage Team'),Navigate('Team Builder Screen_old'))
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =50
+            X: =403
+            Y: =133
+            ZIndex: =7
+
+        Label22_18 As label:
+            Font: =Font.Arial
+            Height: =45
+            OnSelect: =
+            Text: ="Create Team"
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =115
+            X: =480
+            Y: =133
+            ZIndex: =8
+
+        Icon8_13 As icon.ArrowRight:
+            Color: =RGBA(16, 0, 93, 1)
+            Height: =50
+            Icon: =Icon.ArrowRight
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =69
+            X: =616
+            Y: =130
+            ZIndex: =9
+
+        Circle1_17 As circle:
+            Fill: =If(LookUp(QuestionSubmission, TeamID = TeamInformation.ID, true),RGBA(25, 140, 10, 1), RGBA(192, 192, 179, 1))
+            Height: =50
+            OnSelect: =Navigate('Question List')
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =50
+            X: =714
+            Y: =133
+            ZIndex: =10
+
+        Label22_17 As label:
+            Font: =Font.Arial
+            Height: =48
+            OnSelect: =
+            Text: ="Submit Idea"
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =117
+            X: =791
+            Y: =130
+            ZIndex: =11
+
+        Icon8_12 As icon.ArrowRight:
+            Color: =RGBA(16, 0, 93, 1)
+            Height: =50
+            Icon: =Icon.ArrowRight
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =69
+            X: =920
+            Y: =130
+            ZIndex: =12
+
+        Circle1_16 As circle:
+            Fill: =RGBA(192, 192, 179, 1)
+            Height: =50
+            OnSelect: =If(isTeamCaptain,Navigate('Submitted List'),false)
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =50
+            X: =1009
+            Y: =133
+            ZIndex: =13
+
+        Label22_16 As label:
+            Font: =Font.Arial
+            Height: =48
+            OnSelect: =
+            Text: ="Manage Ideas"
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =132
+            X: =1086
+            Y: =130
+            ZIndex: =14
+
+    Navbar As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =34
+
+        Rectangle4 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Width: =1366
+            ZIndex: =15
+
+        Image3 As image:
+            Height: =80
+            Image: =Office365Users.UserPhotoV2(Office365Users.MyProfile().Mail)
+            OnSelect: =Navigate(Profile)
+            RadiusBottomLeft: =80
+            RadiusBottomRight: =80
+            RadiusTopLeft: =80
+            RadiusTopRight: =80
+            Width: =80
+            X: =1246
+            Y: =10
+            ZIndex: =16
+
+        Label14 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =49
+            Size: =16
+            Text: =Office365Users.MyProfile().DisplayName
+            Width: =145
+            X: =1030
+            ZIndex: =17
+
+        Label15 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =45
+            Size: =14
+            Text: =Office365Users.MyProfile().JobTitle
+            Width: =265
+            X: =970
+            Y: =45
+            ZIndex: =18
+
+        Image1 As image:
+            Image: =Zensar_logo_wht_png
+            OnSelect: =Navigate(Home)
+            Width: =170
+            X: =135
+            ZIndex: =23
+
+        Icon10 As icon.Hamburger:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Hamburger
+            OnSelect: =Set(showBurgerMenu, true)
+            Visible: =!showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =26
+
+        Icon11 As icon.Cancel:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Cancel
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =33
+
+        Button5 As button:
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =99
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+            OnSelect: =If(MentorApply,Navigate('Mentor Profile'))
+            Text: ="Button"
+            Width: =92
+            X: =1240
+            ZIndex: =34
+

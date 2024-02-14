@@ -1,0 +1,1064 @@
+"Team As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+    OnVisible: |-
+        =Set(showBurgerMenu, false);
+        Set(TeamInformation, LookUp(
+            Info, 
+            'Team Captain' = profileMail || 
+            'Team Member 1' = profileMail || 
+            'Team Member 2' = profileMail || 
+            'Team Member 3' = profileMail ||
+            'Team Member 4' = profileMail || 
+            'Team Member 5' = profileMail ||
+            'Team Member 6' = profileMail ||
+            'Team Member 7' = profileMail ||
+            'Mentor 1' = profileMail ||
+            'Mentor 2' = profileMail
+            ));
+        
+        Set(tID, TeamInformation.ID);
+        Set(teamName, TeamInformation.Title);
+        Set(teamPoints, TeamInformation.Points);
+        Set(tc, TeamInformation.'Team Captain');
+        Set(tm1, TeamInformation.'Team Member 1');
+        Set(tm2, TeamInformation.'Team Member 2');
+        Set(tm3, TeamInformation.'Team Member 3');
+        Set(tm4, TeamInformation.'Team Member 4');
+        Set(tm5, TeamInformation.'Team Member 5');
+        Set(tm6, TeamInformation.'Team Member 6');
+        Set(tm7, TeamInformation.'Team Member 7');
+        Set(m1, TeamInformation.'Mentor 1');
+        Set(m2, TeamInformation.'Mentor 2');
+        
+        If(LookUp(Info, 'Team Captain' = profileMail, true), Set(showManageTeam, true), Set(showManageTeam, false));
+
+    Canvas1 As fluidGrid.fluidGridWithBlankCard:
+        BorderThickness: =0
+        Height: =Parent.Height - Self.Y
+        Width: =Parent.Width
+        Y: |
+            =/*RectQuickActionBar1.Y + RectQuickActionBar1.Height*/
+            100
+        ZIndex: =3
+
+        DataCard2 As dataCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =0
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =713
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            Icon8_33 As icon.BackArrow:
+                Height: =50
+                Icon: =Icon.BackArrow
+                OnSelect: =Navigate(Profile)
+                Width: =50
+                X: =40
+                Y: =40
+                ZIndex: =12
+
+            "'Progress bar_10' As group":
+                Height: =5
+                Width: =5
+                X: =-116
+                Y: =-90
+                ZIndex: =12
+
+                Circle1_43 As circle:
+                    Fill: =If(LookUp(Info, 'Team Captain' = profileMail || 'Team Member 1' = profileMail || 'Team Member 2' = profileMail || 'Team Member 3' = profileMail || 'Team Member 4' = profileMail || 'Team Member 5' = profileMail || 'Team Member 6' = profileMail || 'Team Member 7' = profileMail || 'Mentor 1' = profileMail || 'Mentor 2' = profileMail, true),RGBA(25, 140, 10, 1), RGBA(192, 192, 179, 1))
+                    Height: =50
+                    OnSelect: =Navigate(Profile)
+                    Visible: =If(MentorApply || !isTeamCaptain,false,true)
+                    Width: =50
+                    X: =152
+                    Y: =38
+                    ZIndex: =1
+
+                Label22_43 As label:
+                    Font: =Font.Arial
+                    Height: =45
+                    Text: ="Apply"
+                    Visible: =If(MentorApply || !isTeamCaptain,false,true)
+                    Width: =80
+                    X: =229
+                    Y: =38
+                    ZIndex: =2
+
+                Icon8_32 As icon.ArrowRight:
+                    Color: =RGBA(16, 0, 93, 1)
+                    Height: =50
+                    Icon: =Icon.ArrowRight
+                    Visible: =If(MentorApply || !isTeamCaptain,false,true)
+                    Width: =69
+                    X: =310
+                    Y: =35
+                    ZIndex: =3
+
+                Circle1_42 As circle:
+                    Fill: =If(LookUp(Info, 'Team Captain' = profileMail || 'Team Member 1' = profileMail || 'Team Member 2' = profileMail || 'Team Member 3' = profileMail || 'Team Member 4' = profileMail || 'Team Member 5' = profileMail || 'Team Member 6' = profileMail || 'Team Member 7' = profileMail || 'Mentor 1' = profileMail || 'Mentor 2' = profileMail, true),RGBA(25, 140, 10, 1), RGBA(192, 192, 179, 1))
+                    Height: =50
+                    OnSelect: =If(isTeamCaptain,Navigate('Manage Team'),Navigate('Team Builder Screen_old'))
+                    Visible: =If(MentorApply || !isTeamCaptain,false,true)
+                    Width: =50
+                    X: =399
+                    Y: =38
+                    ZIndex: =4
+
+                Label22_42 As label:
+                    Font: =Font.Arial
+                    Height: =45
+                    Text: ="Create Team"
+                    Visible: =If(MentorApply || !isTeamCaptain,false,true)
+                    Width: =115
+                    X: =476
+                    Y: =38
+                    ZIndex: =5
+
+                Icon8_31 As icon.ArrowRight:
+                    Color: =RGBA(16, 0, 93, 1)
+                    Height: =50
+                    Icon: =Icon.ArrowRight
+                    Visible: =If(MentorApply || !isTeamCaptain,false,true)
+                    Width: =69
+                    X: =612
+                    Y: =35
+                    ZIndex: =6
+
+                Circle1_41 As circle:
+                    Fill: =If(LookUp(QuestionSubmission, TeamID = TeamInformation.ID, true),RGBA(25, 140, 10, 1), RGBA(192, 192, 179, 1))
+                    Height: =50
+                    OnSelect: =Navigate('Question List')
+                    Visible: =If(MentorApply || !isTeamCaptain,false,true)
+                    Width: =50
+                    X: =710
+                    Y: =38
+                    ZIndex: =7
+
+                Label22_41 As label:
+                    Font: =Font.Arial
+                    Height: =48
+                    Text: ="Submit Idea"
+                    Visible: =If(MentorApply || !isTeamCaptain,false,true)
+                    Width: =117
+                    X: =787
+                    Y: =35
+                    ZIndex: =8
+
+                Icon8_30 As icon.ArrowRight:
+                    Color: =RGBA(16, 0, 93, 1)
+                    Height: =50
+                    Icon: =Icon.ArrowRight
+                    Visible: =If(MentorApply || !isTeamCaptain,false,true)
+                    Width: =69
+                    X: =916
+                    Y: =35
+                    ZIndex: =9
+
+                Circle1_40 As circle:
+                    Fill: =RGBA(192, 192, 179, 1)
+                    Height: =50
+                    OnSelect: =Navigate('Submitted List')
+                    Visible: =If(MentorApply || !isTeamCaptain,false,true)
+                    Width: =50
+                    X: =1005
+                    Y: =38
+                    ZIndex: =10
+
+                Label22_40 As label:
+                    Font: =Font.Arial
+                    Height: =48
+                    Text: ="Manage Ideas"
+                    Visible: =If(MentorApply || !isTeamCaptain,false,true)
+                    Width: =132
+                    X: =1082
+                    Y: =35
+                    ZIndex: =11
+
+            "Gallery4_1 As gallery.'BrowseLayout_Vertical_ThreeTextOneImageVariant_ver4.0'":
+                BorderColor: =RGBA(0, 0, 0, 1)
+                BorderThickness: =1
+                Height: =426
+                Items: |-
+                    =Table(
+                        {
+                            TeamPosition: "Team Captain",
+                            Name: Office365Users.UserProfile(tc).DisplayName,
+                            Title: Office365Users.UserProfile(tc).JobTitle,
+                            ProfileImage: If(!IsBlank(tc), Office365Users.UserPhotoV2(tc), SampleImage)
+                        }, 
+                        {
+                            TeamPosition: "Team Member 1",
+                            Name: Office365Users.UserProfile(tm1).DisplayName,
+                            Title: Office365Users.UserProfile(tm1).JobTitle,
+                            ProfileImage: If(!IsBlank(tm1), Office365Users.UserPhotoV2(tm1), SampleImage) 
+                        }, 
+                        {
+                            TeamPosition: "Team Member 2",
+                            Name: Office365Users.UserProfile(tm2).DisplayName,
+                            Title: Office365Users.UserProfile(tm2).JobTitle,
+                            ProfileImage: If(!IsBlank(tm2), Office365Users.UserPhotoV2(tm2), SampleImage) 
+                        },
+                        {
+                            TeamPosition: "Team Member 3",
+                            Name: Office365Users.UserProfile(tm3).DisplayName,
+                            Title: Office365Users.UserProfile(tm3).JobTitle,
+                            ProfileImage: If(!IsBlank(tm3), Office365Users.UserPhotoV2(tm3), SampleImage) 
+                        },
+                        {
+                            TeamPosition: "Team Member 4",
+                            Name: Office365Users.UserProfile(tm4).DisplayName,
+                            Title: Office365Users.UserProfile(tm4).JobTitle,
+                            ProfileImage: If(!IsBlank(tm4), Office365Users.UserPhotoV2(tm4), SampleImage) 
+                        },
+                        {
+                            TeamPosition: "Team Member 5",
+                            Name: Office365Users.UserProfile(tm5).DisplayName,
+                            Title: Office365Users.UserProfile(tm5).JobTitle,
+                            ProfileImage: If(!IsBlank(tm5), Office365Users.UserPhotoV2(tm5), SampleImage)
+                        },
+                        {
+                            TeamPosition: "Team Member 6",
+                            Name: Office365Users.UserProfile(tm6).DisplayName,
+                            Title: Office365Users.UserProfile(tm6).JobTitle,
+                            ProfileImage: If(!IsBlank(tm6), Office365Users.UserPhotoV2(tm6), SampleImage)
+                        },
+                        {
+                            TeamPosition: "Team Member 7",
+                            Name: Office365Users.UserProfile(tm7).DisplayName,
+                            Title: Office365Users.UserProfile(tm7).JobTitle,
+                            ProfileImage: If(!IsBlank(tm7), Office365Users.UserPhotoV2(tm7), SampleImage)
+                        }
+                    
+                    
+                    )
+                Layout: =Layout.Vertical
+                ShowScrollbar: =false
+                TemplatePadding: =0
+                TemplateSize: =142
+                Transition: =Transition.Pop
+                Width: =1116
+                WrapCount: =3
+                X: =125
+                Y: =198
+                ZIndex: =13
+
+                Image6_1 As image:
+                    BorderThickness: =2
+                    Height: =94
+                    Image: |
+                        =ThisItem.ProfileImage
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    PaddingTop: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =98
+                    X: =18
+                    Y: =16
+                    ZIndex: =1
+
+                Title4_1 As label:
+                    Height: =28
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =16
+                    Text: =ThisItem.Name
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =228
+                    X: =Image6_1.X + Image6_1.Width + 16
+                    Y: =16
+                    ZIndex: =2
+
+                Subtitle4_1 As label:
+                    Height: =Self.Size * 1.8
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =14
+                    Text: =ThisItem.TeamPosition
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =Title4_1.Width
+                    X: =Title4_1.X
+                    Y: =Title4_1.Y + Title4_1.Height + 2
+                    ZIndex: =3
+
+                Body1_1 As label:
+                    Height: =Self.Size * 4
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =14
+                    Text: =ThisItem.Title
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =Subtitle4_1.Width
+                    X: =Subtitle4_1.X
+                    Y: =Subtitle4_1.Y + Subtitle4_1.Height + 4
+                    ZIndex: =4
+
+                Separator3_1 As rectangle:
+                    Height: =1
+                    OnSelect: =Select(Parent)
+                    Width: =Parent.TemplateWidth
+                    Y: =Parent.TemplateHeight - 1
+                    ZIndex: =6
+
+            Label4_9 As label:
+                Align: =Align.Center
+                Font: =Font.Arial
+                Height: =41
+                Size: =24
+                Text: ="Team Members"
+                Width: =247
+                X: =560
+                Y: =122
+                ZIndex: =14
+
+            Button10_1 As button:
+                Fill: =RGBA(180, 38, 30, 1)
+                Height: =45
+                HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+                OnSelect: =Navigate('Manage Team')
+                Text: |-
+                    ="Manage Team
+                    "
+                Visible: =showManageTeam
+                X: =603
+                Y: =648
+                ZIndex: =15
+
+            Button15 As button:
+                Fill: =RGBA(180, 30, 38, 1)
+                OnSelect: =Set(MemberInvitePopUp,true)
+                Text: ="Invite  Member"
+                Visible: =If(MentorApply,false,true)
+                X: =1076
+                Y: =650
+                ZIndex: =16
+
+        DataCard4 As dataCard.blankCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =436
+            Width: =1366
+            X: =0
+            Y: =1
+            ZIndex: =2
+
+            "Gallery4_2 As gallery.'BrowseLayout_Vertical_ThreeTextOneImageVariant_ver4.0'":
+                BorderColor: =RGBA(0, 0, 0, 1)
+                BorderThickness: =1
+                Height: =142
+                Items: |-
+                    =Table(
+                        {
+                            TeamPosition: "Mentor 1",
+                            Name: Office365Users.UserProfile(m1).DisplayName,
+                            Title: Office365Users.UserProfile(m1).JobTitle,
+                            ProfileImage: If(!IsBlank(m1), Office365Users.UserPhotoV2(m1), SampleImage) 
+                        },
+                        {
+                            TeamPosition: "Mentor 2",
+                            Name: Office365Users.UserProfile(m2).DisplayName,
+                            Title: Office365Users.UserProfile(m2).JobTitle,
+                            ProfileImage: If(!IsBlank(m2), Office365Users.UserPhoto(m2),SampleImage)
+                        }
+                    )
+                Layout: =Layout.Vertical
+                ShowScrollbar: =false
+                TemplatePadding: =0
+                TemplateSize: =142
+                Transition: =Transition.Pop
+                Width: =1116
+                WrapCount: =3
+                X: =125
+                Y: =118
+                ZIndex: =1
+
+                Image6_2 As image:
+                    BorderThickness: =2
+                    Height: =94
+                    Image: =ThisItem.ProfileImage
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    PaddingTop: =5
+                    RadiusBottomLeft: =10
+                    RadiusBottomRight: =10
+                    RadiusTopLeft: =10
+                    RadiusTopRight: =10
+                    Width: =98
+                    X: =18
+                    Y: =16
+                    ZIndex: =1
+
+                Title4_2 As label:
+                    Height: =28
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =16
+                    Text: =ThisItem.Name
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =228
+                    X: =Image6_2.X + Image6_2.Width + 16
+                    Y: =16
+                    ZIndex: =2
+
+                Subtitle4_2 As label:
+                    Height: =Self.Size * 1.8
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =14
+                    Text: =ThisItem.TeamPosition
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =Title4_2.Width
+                    X: =Title4_2.X
+                    Y: =Title4_2.Y + Title4_2.Height + 2
+                    ZIndex: =3
+
+                Body1_2 As label:
+                    Height: =Self.Size * 4
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =14
+                    Text: =ThisItem.Title
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =Subtitle4_2.Width
+                    X: =Subtitle4_2.X
+                    Y: =Subtitle4_2.Y + Subtitle4_2.Height + 4
+                    ZIndex: =4
+
+                Separator3_2 As rectangle:
+                    Height: =1
+                    OnSelect: =Select(Parent)
+                    Width: =Parent.TemplateWidth
+                    Y: =Parent.TemplateHeight - 1
+                    ZIndex: =6
+
+            Label4_10 As label:
+                Align: =Align.Center
+                Font: =Font.Arial
+                Height: =46
+                Size: =24
+                Text: =" Team Mentors"
+                Width: =250
+                X: =558
+                Y: =38
+                ZIndex: =2
+
+            Button9_1 As button:
+                Fill: =RGBA(180, 30, 38, 1)
+                Height: =45
+                HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+                OnSelect: =Navigate('Buying System')
+                Text: ="Select mentor"
+                Visible: =showManageTeam
+                X: =603
+                Y: =320
+                ZIndex: =3
+
+            Button14 As button:
+                Fill: =RGBA(180,30,38, 1)
+                OnSelect: =Set(MentorInvitePopUp,true)
+                Text: ="Invite Mentor"
+                X: =1081
+                Y: =320
+                ZIndex: =4
+
+    "'Burger Menu_9' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =28
+
+        Rectangle9_9 As rectangle:
+            Fill: =RGBA(128, 128, 128, 0.7)
+            Height: =668
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =1366
+            Y: =100
+            ZIndex: =22
+
+        Rectangle10_9 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Height: =668
+            Visible: =showBurgerMenu
+            Width: =305
+            Y: =99
+            ZIndex: =23
+
+        Button13_47 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate(Home)
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Home"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =123
+            ZIndex: =24
+
+        Button13_46 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate(Profile)
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Profile"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =178
+            ZIndex: =25
+
+        Button13_38 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Question List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Problem Statements"
+            Visible: =showBurgerMenu
+            Width: =251
+            X: =27
+            Y: =233
+            ZIndex: =26
+
+        Button13_37 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Submitted List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Submissions"
+            Visible: =showBurgerMenu
+            Width: =148
+            X: =69
+            Y: =292
+            ZIndex: =27
+
+    Navbar_9 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =31
+
+        Rectangle4_9 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Width: =1366
+            ZIndex: =16
+
+        Image3_9 As image:
+            Height: =80
+            Image: |
+                =Office365Users.UserPhotoV2(Office365Users.MyProfile().Mail)
+            OnSelect: =Navigate(Profile)
+            RadiusBottomLeft: =80
+            RadiusBottomRight: =80
+            RadiusTopLeft: =80
+            RadiusTopRight: =80
+            Width: =80
+            X: =1246
+            Y: =10
+            ZIndex: =17
+
+        Label14_9 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =49
+            Size: =16
+            Text: =Office365Users.MyProfile().DisplayName
+            Width: =145
+            X: =1030
+            ZIndex: =18
+
+        Label15_10 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =45
+            Size: =14
+            Text: =Office365Users.MyProfile().JobTitle
+            Width: =265
+            X: =970
+            Y: =45
+            ZIndex: =19
+
+        Image1_9 As image:
+            Image: =Zensar_logo_wht_png
+            OnSelect: =Navigate(Home)
+            Width: =170
+            X: =135
+            ZIndex: =20
+
+        Icon10_9 As icon.Hamburger:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Hamburger
+            OnSelect: =Set(showBurgerMenu, true)
+            Visible: =!showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =21
+
+        Icon11_9 As icon.Cancel:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Cancel
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =29
+
+        Button5_13 As button:
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =99
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+            OnSelect: =Navigate(Profile)
+            Text: ="Button"
+            Width: =92
+            X: =1240
+            ZIndex: =30
+
+    "'Invite Mentor PopUp' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =31
+
+        Rectangle2_9 As rectangle:
+            Fill: =RGBA(179, 179, 179, 0.7)
+            Height: =768
+            Visible: =MentorInvitePopUp
+            Width: =1366
+            ZIndex: =32
+
+        Rectangle3_2 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =656
+            OnSelect: =Set(mentorName,Blank())
+            Visible: =MentorInvitePopUp
+            Width: =523
+            X: =421
+            Y: =52
+            ZIndex: =33
+
+        Label8_2 As label:
+            Height: =42
+            Size: =16
+            Text: ="Select Mentor"
+            Visible: =MentorInvitePopUp
+            Width: =225
+            X: =569
+            Y: =99
+            ZIndex: =34
+
+        TextInput2_2 As text:
+            Default: |
+                =//If(
+                    //selectUser1Clicked, varSelectedPerson1.DisplayName,
+                    //selectUser2Clicked, varSelectedPerson2.DisplayName, 
+                    //selectUser3Clicked, varSelectedPerson3.DisplayName, 
+                   // selectUser4Clicked, varSelectedPerson4.DisplayName, 
+                    //selectUser5Clicked, varSelectedPerson5.DisplayName, 
+                    //selectUser6Clicked, varSelectedPerson6.DisplayName, 
+                    //selectUser7Clicked, varSelectedPerson7.DisplayName,
+                    //selectUser8Clicked, varSelectedPerson8.DisplayName,
+                    //selectUser9Clicked, varSelectedPerson9.DisplayName)
+                    mentorName
+            HintText: ="Search User"
+            Visible: =MentorInvitePopUp
+            X: =523
+            Y: =161
+            ZIndex: =35
+
+        "Gallery1_3 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+            Height: =354
+            Items: |+
+                =If(
+                    IsBlank(TextInput2_2.Text), 
+                    Office365Users.SearchUserV2({searchTerm:Left(User().FullName, 1), top:3}).value, 
+                    Office365Users.SearchUserV2({searchTerm:TextInput2_2.Text, top:5}).value
+                )
+                
+            Layout: =Layout.Vertical
+            OnSelect: |+
+                =If(LookUp(
+                    ParticipantList,ThisItem.Mail=Title 
+                    , true) || LookUp(
+                    Mentor,ThisItem.Mail=Title 
+                    , true),
+                    Notify("This member has already registered"),
+                    Set(mentorName,ThisItem.DisplayName) && Set(mentorEmail,ThisItem.Mail)
+                );
+                
+            TemplatePadding: =0
+            TemplateSize: =Min(160, Self.Height - 60)
+            Transition: =Transition.Pop
+            Visible: =MentorInvitePopUp
+            Width: =351
+            X: =504
+            Y: =261
+            ZIndex: =36
+
+            Image2_4 As image:
+                Height: =101
+                Image: |-
+                    =With(
+                        {
+                            personImage: Office365Users.UserPhotoV2(ThisItem.Mail),
+                            hasphoto: Office365Users.UserPhotoMetadata(ThisItem.UserPrincipalName).HasPhoto
+                        },
+                        If(
+                            hasphoto,
+                            personImage,
+                            SampleImage
+                        )
+                    )
+                OnSelect: =Select(Parent)
+                Width: =103
+                X: =18
+                Y: =24
+                ZIndex: =1
+
+            Title1_2 As label:
+                Height: =53
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =14
+                Text: =ThisItem.DisplayName
+                VerticalAlign: =VerticalAlign.Top
+                Width: =167
+                X: =162
+                Y: =36
+                ZIndex: =2
+
+            Subtitle1_2 As label:
+                Height: =Self.Size * 1.8
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =12
+                Text: =ThisItem.JobTitle
+                VerticalAlign: =VerticalAlign.Top
+                Width: =Title1_2.Width
+                X: =Title1_2.X
+                Y: =90
+                ZIndex: =3
+
+            Separator1_3 As rectangle:
+                Height: =0
+                OnSelect: =Select(Parent)
+                Width: =Parent.TemplateWidth
+                Y: =Parent.TemplateHeight - 1
+                ZIndex: =5
+
+        Button4_4 As button:
+            Fill: =RGBA(180, 30, 38, 1)
+            HoverFill: =ColorFade(RGBA(180, 30, 38, 1), -20%)
+            OnSelect: |-
+                =Office365Outlook.SendEmail(mentorEmail, "Mentor Invitation Mail", "Hi,
+                I would like to invite you as a mentor for the Global Hackathon at Zensar.
+                Here is the link to register
+                
+                 https://apps.powerapps.com/play/e/default-207c3e32-7115-4ed3-8a55-22f7edb77dc9/a/b0cd72e2-5bd3-47da-ab0e-ecfb037c7401?tenantId=207c3e32-7115-4ed3-8a55-22f7edb77dc9");
+                Set(MentorInvitePopUp, false);
+                Set(mentorName,Blank());
+                Set(mentorEmail,Blank());
+                /*Set(selectUser1Clicked, false);*/
+            Text: |-
+                ="Send Link
+                "
+            Visible: =MentorInvitePopUp
+            X: =603
+            Y: =650
+            ZIndex: =37
+
+        Icon1_7 As icon.Cancel:
+            Height: =53
+            Icon: =Icon.Cancel
+            OnSelect: |
+                =Set(mentorName,Blank());
+                Set(mentorEmail,Blank());
+                Set(MentorInvitePopUp, false)
+                
+                /*Set(selectUser1Clicked, false);*/
+            Visible: =MentorInvitePopUp
+            Width: =46
+            X: =880
+            Y: =55
+            ZIndex: =38
+
+        Label9_4 As label:
+            Text: ="Suggested Users"
+            Visible: =MentorInvitePopUp
+            X: =606
+            Y: =224
+            ZIndex: =39
+
+        Icon2_2 As icon.Cancel:
+            Height: =40
+            Icon: =Icon.Cancel
+            OnSelect: |+
+                =Reset(TextInput2_2);
+                Set(mentorName,Blank());
+                Set(mentorEmail,Blank())
+                
+            Visible: =MentorInvitePopUp
+            Width: =34
+            X: =801
+            Y: =162
+            ZIndex: =40
+
+    "'Invite Member PopUp' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =41
+
+        Rectangle2_14 As rectangle:
+            Fill: =RGBA(179, 179, 179, 0.7)
+            Height: =768
+            Visible: =MemberInvitePopUp
+            Width: =1366
+            ZIndex: =42
+
+        Rectangle3_6 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =656
+            OnSelect: =Set(mentorName,Blank())
+            Visible: =MemberInvitePopUp
+            Width: =523
+            X: =421
+            Y: =52
+            ZIndex: =43
+
+        Label8_7 As label:
+            Height: =42
+            Size: =16
+            Text: ="Select Member"
+            Visible: =MemberInvitePopUp
+            Width: =225
+            X: =587
+            Y: =99
+            ZIndex: =44
+
+        TextInput2_6 As text:
+            Default: |
+                =//If(
+                    //selectUser1Clicked, varSelectedPerson1.DisplayName,
+                    //selectUser2Clicked, varSelectedPerson2.DisplayName, 
+                    //selectUser3Clicked, varSelectedPerson3.DisplayName, 
+                   // selectUser4Clicked, varSelectedPerson4.DisplayName, 
+                    //selectUser5Clicked, varSelectedPerson5.DisplayName, 
+                    //selectUser6Clicked, varSelectedPerson6.DisplayName, 
+                    //selectUser7Clicked, varSelectedPerson7.DisplayName,
+                    //selectUser8Clicked, varSelectedPerson8.DisplayName,
+                    //selectUser9Clicked, varSelectedPerson9.DisplayName)
+                    memberName
+            HintText: ="Search User"
+            Visible: =MemberInvitePopUp
+            X: =523
+            Y: =161
+            ZIndex: =45
+
+        "Gallery1_7 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+            Height: =354
+            Items: |+
+                =If(
+                    IsBlank(TextInput2_6.Text), 
+                    Office365Users.SearchUserV2({searchTerm:Left(User().FullName, 1), top:3}).value, 
+                    Office365Users.SearchUserV2({searchTerm:TextInput2_6.Text, top:5}).value
+                )
+                
+            Layout: =Layout.Vertical
+            OnSelect: |+
+                =If(LookUp(
+                    ParticipantList,ThisItem.Mail=Title 
+                    , true) || LookUp(
+                    Mentor,ThisItem.Mail=Title 
+                    , true),
+                    Notify("This member has already registered"),
+                    Set(memberName,ThisItem.DisplayName) && Set(memberEmail,ThisItem.Mail)
+                );
+                
+                
+            TemplatePadding: =0
+            TemplateSize: =Min(160, Self.Height - 60)
+            Transition: =Transition.Pop
+            Visible: =MemberInvitePopUp
+            Width: =351
+            X: =504
+            Y: =261
+            ZIndex: =46
+
+            Image2_8 As image:
+                Height: =101
+                Image: |-
+                    =With(
+                        {
+                            personImage: Office365Users.UserPhotoV2(ThisItem.Mail),
+                            hasphoto: Office365Users.UserPhotoMetadata(ThisItem.UserPrincipalName).HasPhoto
+                        },
+                        If(
+                            hasphoto,
+                            personImage,
+                            SampleImage
+                        )
+                    )
+                OnSelect: =Select(Parent)
+                Width: =103
+                X: =18
+                Y: =24
+                ZIndex: =1
+
+            Title1_6 As label:
+                Height: =53
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =14
+                Text: =ThisItem.DisplayName
+                VerticalAlign: =VerticalAlign.Top
+                Width: =167
+                X: =162
+                Y: =36
+                ZIndex: =2
+
+            Subtitle1_6 As label:
+                Height: =Self.Size * 1.8
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =12
+                Text: =ThisItem.JobTitle
+                VerticalAlign: =VerticalAlign.Top
+                Width: =Title1_6.Width
+                X: =Title1_6.X
+                Y: =90
+                ZIndex: =3
+
+            Separator1_7 As rectangle:
+                Height: =0
+                OnSelect: =Select(Parent)
+                Width: =Parent.TemplateWidth
+                Y: =Parent.TemplateHeight - 1
+                ZIndex: =5
+
+        Button4_8 As button:
+            Fill: =RGBA(180, 30, 38, 1)
+            HoverFill: =ColorFade(RGBA(180, 30, 38, 1), -20%)
+            OnSelect: |-
+                =Office365Outlook.SendEmail(memberEmail, "Member Invitation Mail", "Hi,
+                I would like to invite you as a team member for the Global Hackathon at Zensar. Your contribution will be important to us.
+                Here is the link to register
+                 https://apps.powerapps.com/play/e/default-207c3e32-7115-4ed3-8a55-22f7edb77dc9/a/b0cd72e2-5bd3-47da-ab0e-ecfb037c7401?tenantId=207c3e32-7115-4ed3-8a55-22f7edb77dc9");
+                Set(MemberInvitePopUp, false);
+                Set(memberName,Blank());
+                Set(memberEmail,Blank());
+                /*Set(selectUser1Clicked, false);*/
+            Text: |-
+                ="Send Link
+                "
+            Visible: =MemberInvitePopUp
+            X: =603
+            Y: =650
+            ZIndex: =47
+
+        Icon1_11 As icon.Cancel:
+            Height: =53
+            Icon: =Icon.Cancel
+            OnSelect: |
+                =Set(memberName,Blank());
+                Set(memberEmail,Blank());
+                Set(MemberInvitePopUp, false)
+                
+                /*Set(selectUser1Clicked, false);*/
+            Visible: =MemberInvitePopUp
+            Width: =46
+            X: =880
+            Y: =55
+            ZIndex: =48
+
+        Label9_8 As label:
+            Text: ="Suggested Users"
+            Visible: =MemberInvitePopUp
+            X: =606
+            Y: =224
+            ZIndex: =49
+
+        Icon2_7 As icon.Cancel:
+            Height: =40
+            Icon: =Icon.Cancel
+            OnSelect: |
+                =Reset(TextInput2_6);
+                Set(memberName,Blank());
+                Set(memberEmail,Blank());
+            Visible: =MemberInvitePopUp
+            Width: =34
+            X: =801
+            Y: =162
+            ZIndex: =50
+

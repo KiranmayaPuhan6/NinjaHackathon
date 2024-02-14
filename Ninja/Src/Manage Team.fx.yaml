@@ -1,0 +1,2024 @@
+"'Manage Team' As screen":
+    OnVisible: |-
+        =Set(showBurgerMenu, false);
+        Set(varSelectedPerson1, Blank());
+        Set(varSelectedPerson2, Blank());
+        Set(varSelectedPerson3, Blank());
+        Set(varSelectedPerson4, Blank());
+        Set(varSelectedPerson5, Blank());
+        Set(varSelectedPerson6, Blank());
+        Set(varSelectedPerson7, Blank());
+        Set(varSelectedPerson8, Blank());
+        Set(varSelectedPerson9, Blank());
+        Set(currentMember1, LookUp(Info, 'Team Captain' = profileMail, 'Team Member 1'));
+        Set(currentMember2, LookUp(Info, 'Team Captain' = profileMail, 'Team Member 2'));
+        Set(currentMember3, LookUp(Info, 'Team Captain' = profileMail, 'Team Member 3'));
+        Set(currentMember4, LookUp(Info, 'Team Captain' = profileMail, 'Team Member 4'));
+        Set(currentMember5, LookUp(Info, 'Team Captain' = profileMail, 'Team Member 5'));
+        Set(currentMember6, LookUp(Info, 'Team Captain' = profileMail, 'Team Member 6'));
+        Set(currentMember7, LookUp(Info, 'Team Captain' = profileMail, 'Team Member 7'));
+        Set(currentMember8, LookUp(Info, 'Team Captain' = profileMail, 'Mentor 1'));
+        Set(currentMember9, LookUp(Info, 'Team Captain' = profileMail, 'Mentor 2'));
+        Set(showDeletePopUp, false);
+        Set(userExistsPopUp, false);
+
+    TextInput4_1 As text:
+        Default: =teamName
+        DisplayMode: =DisplayMode.View
+        X: =535
+        Y: =301
+        ZIndex: =1
+
+    Label10_3 As label:
+        Align: =Align.Center
+        Text: ="Team name"
+        X: =385
+        Y: =301
+        ZIndex: =2
+
+    Icon8_2 As icon.BackArrow:
+        Height: =50
+        Icon: =Icon.BackArrow
+        OnSelect: =Navigate(Team)
+        Width: =50
+        X: =48
+        Y: =133
+        ZIndex: =3
+
+    Label4_2 As label:
+        Align: =Align.Center
+        Font: =Font.Arial
+        Height: =42
+        Size: =24
+        Text: ="Manage Team"
+        Width: =219
+        X: =573
+        Y: =234
+        ZIndex: =15
+
+    Button1_1 As button:
+        DisplayMode: =If(IsBlank(Label7_2.Text)||IsBlank(Label7_3.Text),DisplayMode.Disabled,DisplayMode.Edit)
+        Fill: =RGBA(180,30 ,38, 1)
+        Font: =Font.Arial
+        Height: =45
+        HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+        OnSelect: |-
+            =/*RemoveIf(People, Title = currentMember1);
+            RemoveIf(People, Title = currentMember2);
+            RemoveIf(People, Title = currentMember3);
+            RemoveIf(People, Title = currentMember4);
+            RemoveIf(People, Title = currentMember5);
+            RemoveIf(People, Title = currentMember6);
+            RemoveIf(People, Title = currentMember7);
+            RemoveIf(People, Title = currentMember8);
+            RemoveIf(People, Title = currentMember9);
+            
+            Patch(People, Defaults(People), {Title:If(IsBlank(varSelectedPerson1), currentMember1, varSelectedPerson1.Mail)});
+            Patch(People, Defaults(People), {Title:If(IsBlank(varSelectedPerson2), currentMember2, varSelectedPerson2.Mail)});
+            Patch(People, Defaults(People), {Title:If(IsBlank(varSelectedPerson3), currentMember3, varSelectedPerson3.Mail)});
+            Patch(People, Defaults(People), {Title:If(IsBlank(varSelectedPerson4), currentMember4, varSelectedPerson4.Mail)});
+            Patch(People, Defaults(People), {Title:If(IsBlank(varSelectedPerson5), currentMember5, varSelectedPerson5.Mail)});
+            Patch(People, Defaults(People), {Title:If(IsBlank(varSelectedPerson6), currentMember6, varSelectedPerson6.Mail)});
+            Patch(People, Defaults(People), {Title:If(IsBlank(varSelectedPerson7), currentMember7, varSelectedPerson7.Mail)});
+            Patch(People, Defaults(People), {Title:If(IsBlank(varSelectedPerson8), currentMember8, varSelectedPerson8.Mail)});
+            Patch(People, Defaults(People), {Title:If(IsBlank(varSelectedPerson9), currentMember9, varSelectedPerson9.Mail)});
+            */
+            Patch(Info, LookUp(Info, 'Team Captain' = profileMail), 
+            {'Team Member 1':If(IsBlank(varSelectedPerson1), currentMember1, varSelectedPerson1.Title)}, 
+            {'Team Member 2':If(IsBlank(varSelectedPerson2), currentMember2, varSelectedPerson2.Title)}, 
+            {'Team Member 3':If(IsBlank(varSelectedPerson3), currentMember3, varSelectedPerson3.Title)}, 
+            {'Team Member 4':If(IsBlank(varSelectedPerson4), currentMember4, varSelectedPerson4.Title)}, 
+            {'Team Member 5':If(IsBlank(varSelectedPerson5), currentMember5, varSelectedPerson5.Title)}, 
+            {'Team Member 6':If(IsBlank(varSelectedPerson6), currentMember6, varSelectedPerson6.Title)}, 
+            {'Team Member 7':If(IsBlank(varSelectedPerson7), currentMember7, varSelectedPerson7.Title)}, 
+            {'Mentor 1':If(IsBlank(varSelectedPerson8), currentMember8, varSelectedPerson8.Title)}, 
+            {'Mentor 2':If(IsBlank(varSelectedPerson9), currentMember9, varSelectedPerson9.Title)});
+            
+            Navigate(Team);
+        Text: ="Save"
+        Width: =427
+        X: =167
+        Y: =663
+        ZIndex: =16
+
+    Button12 As button:
+        DisplayMode: =If(LookUp('Grade-List',Title=teamName,true),DisplayMode.Disabled,DisplayMode.Edit)
+        Fill: =RGBA(255, 0, 0, 1)
+        Height: =45
+        HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+        OnSelect: |
+            =Set(showDeletePopUp, true);
+            Set(isTeamCaptain,false);
+        Text: ="Delete Team"
+        Width: =427
+        X: =870
+        Y: =663
+        ZIndex: =23
+
+    "'Select Team Member PopUp_1' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =26
+
+        Rectangle2_1 As rectangle:
+            Fill: =RGBA(179, 179, 179, 0.7)
+            Height: =768
+            Visible: =showPopUp
+            Width: =1366
+            ZIndex: =70
+
+        Rectangle3_1 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =656
+            Visible: =showPopUp
+            Width: =541
+            X: =403
+            Y: =52
+            ZIndex: =71
+
+        Label8_1 As label:
+            Height: =42
+            Size: =16
+            Text: ="Select Team Member"
+            Visible: =showPopUp
+            Width: =225
+            X: =551
+            Y: =95
+            ZIndex: =72
+
+        TextInput2_1 As text:
+            Default: |+
+                =If(
+                    selectUser1Clicked, varSelectedPerson1.Name,
+                    selectUser2Clicked, varSelectedPerson2.Name, 
+                    selectUser3Clicked, varSelectedPerson3.Name, 
+                    selectUser4Clicked, varSelectedPerson4.Name, 
+                    selectUser5Clicked, varSelectedPerson5.Name, 
+                    selectUser6Clicked, varSelectedPerson6.Name, 
+                    selectUser7Clicked, varSelectedPerson7.Name, 
+                    selectUser8Clicked, varSelectedPerson8.Name, 
+                    selectUser9Clicked, varSelectedPerson9.Name
+                )
+                
+            HintText: ="Search User"
+            Visible: =showPopUp
+            X: =503
+            Y: =161
+            ZIndex: =73
+
+        "Gallery1_1 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+            Height: =366
+            Items: |
+                =/*If(
+                    IsBlank(TextInput2_1), 
+                    Office365Users.SearchUserV2({searchTerm:Left(User().FullName, 1), top:3}).value, 
+                    Office365Users.SearchUserV2({searchTerm:TextInput2_1.Text, top:3}).value
+                )*/
+                //Search(ParticipantList,TextInput2_1.Text,"Name")
+                Search(Filter(ParticipantList,ParticiptionRole="Team Member"&&Experience="Fresher (0-1 yr)"&&!Selected),TextInput2_1.Text,"Name")
+            Layout: =Layout.Vertical
+            OnSelect: |
+                =If(LookUp(
+                    Info, 
+                    'Team Captain' = ThisItem.Title || 
+                    'Team Member 1' = ThisItem.Title || 
+                    'Team Member 2' = ThisItem.Title || 
+                    'Team Member 3' = ThisItem.Title || 
+                    'Team Member 4' = ThisItem.Title || 
+                    'Team Member 5' = ThisItem.Title || 
+                    'Team Member 6' = ThisItem.Title || 
+                    'Team Member 7' = ThisItem.Title || 
+                    'Mentor 1' = ThisItem.Title || 
+                    'Mentor 2' = ThisItem.Title, true),
+                    Set(userExistsPopUp, true),
+                    If(
+                        selectUser1Clicked, Set(varSelectedPerson1, ThisItem), 
+                        selectUser2Clicked, Set(varSelectedPerson2, ThisItem), 
+                        selectUser3Clicked, Set(varSelectedPerson3, ThisItem),
+                        selectUser4Clicked, Set(varSelectedPerson4, ThisItem),
+                        selectUser5Clicked, Set(varSelectedPerson5, ThisItem),
+                        selectUser6Clicked, Set(varSelectedPerson6, ThisItem),
+                        selectUser7Clicked, Set(varSelectedPerson7, ThisItem), 
+                        selectUser8Clicked, Set(varSelectedPerson8, ThisItem), 
+                        selectUser9Clicked, Set(varSelectedPerson9, ThisItem)
+                    )
+                );
+            TemplatePadding: =0
+            TemplateSize: =Min(160, Self.Height - 60)
+            Transition: =Transition.Pop
+            Visible: =showPopUp
+            Width: =475
+            X: =439
+            Y: =261
+            ZIndex: =74
+
+            Image2_1 As image:
+                BorderThickness: =2
+                Height: =101
+                Image: |-
+                    =/*With(
+                        {
+                            personImage: Office365Users.UserPhotoV2(ThisItem.Mail),
+                            hasphoto: Office365Users.UserPhotoMetadata(ThisItem.UserPrincipalName).HasPhoto
+                        },
+                        If(
+                            hasphoto,
+                            personImage,
+                            SampleImage
+                        )
+                    )*/
+                    Office365Users.UserPhotoV2(ThisItem.Title)
+                OnSelect: =Select(Parent)
+                PaddingBottom: =5
+                PaddingLeft: =5
+                PaddingRight: =5
+                PaddingTop: =5
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =103
+                X: =18
+                Y: =24
+                ZIndex: =1
+
+            Title1_1 As label:
+                Height: =61
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =14
+                Text: =ThisItem.Name
+                VerticalAlign: =VerticalAlign.Top
+                Width: =173
+                X: =134
+                Y: =24
+                ZIndex: =2
+
+            Subtitle1_1 As label:
+                Height: =Self.Size * 1.8
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =12
+                Text: |-
+                    =Concatenate("Area Of Expertise : ",ThisItem.AreaOfExpertise)
+                VerticalAlign: =VerticalAlign.Top
+                Width: =Title1_1.Width
+                X: =Title1_1.X
+                Y: =64
+                ZIndex: =3
+
+            Separator1_1 As rectangle:
+                Height: =0
+                OnSelect: =Select(Parent)
+                Width: =Parent.TemplateWidth
+                Y: =Parent.TemplateHeight - 1
+                ZIndex: =5
+
+            Icon18 As icon.NextArrow:
+                Height: =44
+                Icon: =Icon.NextArrow
+                OnSelect: |-
+                    =Set(memberProfilePopUp1,true);
+                    Set(memberProfile1,ThisItem)
+                Width: =56
+                X: =405
+                Y: =32
+                ZIndex: =6
+
+        Button4_1 As button:
+            Fill: =RGBA(180, 30, 38, 1)
+            HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+            OnSelect: |-
+                =Set(showPopUp, false);
+                /*Set(selectUser1Clicked, false);*/
+                UpdateIf( ParticipantList, Name=TextInput2_1.Text, {Selected:true} );
+            Text: |-
+                ="Save
+                "
+            Visible: =showPopUp
+            X: =603
+            Y: =650
+            ZIndex: =75
+
+        Icon1_1 As icon.Cancel:
+            Height: =53
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =/*Set(showPopUp, false);
+                 -- Set(selectUser1Clicked, false); -- 
+                If(
+                    selectUser1Clicked, Set(varSelectedPerson1, Blank()), 
+                    selectUser2Clicked, Set(varSelectedPerson2, Blank())
+                );*/
+                Set(showPopUp, false);
+                /*Set(selectUser1Clicked, false);*/
+                If(
+                    selectUser1Clicked, Set(varSelectedPerson1, Blank()), 
+                    selectUser2Clicked, Set(varSelectedPerson2, Blank()), 
+                    selectUser3Clicked, Set(varSelectedPerson3, Blank()), 
+                    selectUser4Clicked, Set(varSelectedPerson4, Blank()), 
+                    selectUser5Clicked, Set(varSelectedPerson5, Blank()), 
+                    selectUser6Clicked, Set(varSelectedPerson6, Blank()), 
+                    selectUser7Clicked, Set(varSelectedPerson7, Blank()), 
+                    selectUser8Clicked, Set(varSelectedPerson8, Blank()), 
+                    selectUser9Clicked, Set(varSelectedPerson9, Blank())
+                );
+            Visible: =showPopUp
+            Width: =46
+            X: =880
+            Y: =68
+            ZIndex: =76
+
+        Label9_1 As label:
+            Text: ="Suggested Users"
+            Visible: =showPopUp
+            X: =575
+            Y: =221
+            ZIndex: =77
+
+        Icon2_1 As icon.Cancel:
+            Height: =37
+            Icon: =Icon.Cancel
+            OnSelect: |
+                =Reset(TextInput2_1);
+                If(
+                    selectUser1Clicked, Set(varSelectedPerson1, Blank()), 
+                    selectUser2Clicked, Set(varSelectedPerson2, Blank()), 
+                    selectUser3Clicked, Set(varSelectedPerson3, Blank()), 
+                    selectUser4Clicked, Set(varSelectedPerson4, Blank()), 
+                    selectUser5Clicked, Set(varSelectedPerson5, Blank()), 
+                    selectUser6Clicked, Set(varSelectedPerson6, Blank()), 
+                    selectUser7Clicked, Set(varSelectedPerson7, Blank()), 
+                    selectUser8Clicked, Set(varSelectedPerson8, Blank()), 
+                    selectUser9Clicked, Set(varSelectedPerson9, Blank())
+                );
+            Visible: =showPopUp
+            Width: =29
+            X: =791
+            Y: =165
+            ZIndex: =78
+
+    "'Team Member 1 Update' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =27
+
+        Label1_1 As label:
+            Align: =Align.Center
+            Text: ="*Fresher 1"
+            X: =90
+            Y: =452
+            ZIndex: =17
+
+        Label7_2 As label:
+            BorderThickness: =1
+            Text: |-
+                =/*varSelectedPerson1.DisplayName*/
+                If(IsBlank(varSelectedPerson1), Office365Users.UserProfile(currentMember1).DisplayName, varSelectedPerson1.Name)
+            Width: =282
+            X: =240
+            Y: =452
+            ZIndex: =19
+
+        Icon3_2 As icon.Cancel:
+            Height: =40
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateIf( ParticipantList, Name=Label7_2.Text, {Selected:false} );
+                If(IsBlank(varSelectedPerson1), Set(currentMember1, Blank()), Set(varSelectedPerson1, Blank()))
+            Width: =40
+            X: =478
+            Y: =452
+            ZIndex: =21
+
+        Icon6 As icon.ChevronDown:
+            Height: =40
+            Icon: =Icon.ChevronDown
+            OnSelect: |-
+                =Set(showPopUp, true);
+                Set(selectUser1Clicked, true);
+                Set(selectUser2Clicked, false);
+                Set(selectUser3Clicked, false);
+                Set(selectUser4Clicked, false);
+                Set(selectUser5Clicked, false);
+                Set(selectUser6Clicked, false);
+                Set(selectUser7Clicked, false);
+                Set(selectUser8Clicked, false);
+                Set(selectUser9Clicked, false);
+            Width: =58
+            X: =526
+            Y: =452
+            ZIndex: =24
+
+    "'Team Member 2 Update' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =27
+
+        Label2_1 As label:
+            Align: =Align.Center
+            Text: ="*Fresher 2"
+            X: =90
+            Y: =513
+            ZIndex: =18
+
+        Label7_3 As label:
+            BorderThickness: =1
+            Text: =If(IsBlank(varSelectedPerson2), Office365Users.UserProfile(currentMember2).DisplayName, varSelectedPerson2.Name)
+            Width: =282
+            X: =240
+            Y: =513
+            ZIndex: =20
+
+        Icon3_3 As icon.Cancel:
+            Height: =40
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateIf( ParticipantList, Name=Label7_3.Text, {Selected:false} );
+                If(IsBlank(varSelectedPerson2), Set(currentMember2, Blank()), Set(varSelectedPerson2, Blank()))
+            Width: =40
+            X: =476
+            Y: =513
+            ZIndex: =22
+
+        Icon6_1 As icon.ChevronDown:
+            Height: =40
+            Icon: =Icon.ChevronDown
+            OnSelect: |-
+                =Set(showPopUp, true);
+                Set(selectUser1Clicked, false);
+                Set(selectUser2Clicked, true);
+                Set(selectUser3Clicked, false);
+                Set(selectUser4Clicked, false);
+                Set(selectUser5Clicked, false);
+                Set(selectUser6Clicked, false);
+                Set(selectUser7Clicked, false);
+                Set(selectUser8Clicked, false);
+                Set(selectUser9Clicked, false);
+            Width: =58
+            X: =526
+            Y: =513
+            ZIndex: =25
+
+    "'Team Member 3 Update' As group":
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =28
+
+        Label2_7 As label:
+            Align: =Align.Center
+            Text: ="Team Member 3"
+            X: =90
+            Y: =574
+            ZIndex: =26
+
+        Label7_10 As label:
+            BorderThickness: =1
+            Text: =If(IsBlank(varSelectedPerson3), Office365Users.UserProfile(currentMember3).DisplayName, varSelectedPerson3.Name)
+            Width: =282
+            X: =240
+            Y: =574
+            ZIndex: =27
+
+        Icon3_9 As icon.Cancel:
+            Height: =40
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateIf( ParticipantList, Name=Label7_10.Text, {Selected:false} );
+                If(IsBlank(varSelectedPerson3), Set(currentMember3, Blank()), Set(varSelectedPerson3, Blank()))
+            Width: =40
+            X: =476
+            Y: =574
+            ZIndex: =28
+
+        Icon6_2 As icon.ChevronDown:
+            Height: =40
+            Icon: =Icon.ChevronDown
+            OnSelect: |-
+                =Set(showPopUp2, true);
+                Set(selectUser1Clicked, false);
+                Set(selectUser2Clicked, false);
+                Set(selectUser3Clicked, true);
+                Set(selectUser4Clicked, false);
+                Set(selectUser5Clicked, false);
+                Set(selectUser6Clicked, false);
+                Set(selectUser7Clicked, false);
+                Set(selectUser8Clicked, false);
+                Set(selectUser9Clicked, false);
+            Width: =58
+            X: =526
+            Y: =574
+            ZIndex: =29
+
+    "'Team Member 4 Update' As group":
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =32
+
+        Label2_8 As label:
+            Align: =Align.Center
+            Text: ="Team Member 4"
+            X: =787
+            Y: =392
+            ZIndex: =30
+
+        Label7_11 As label:
+            BorderThickness: =1
+            Text: =If(IsBlank(varSelectedPerson4), Office365Users.UserProfile(currentMember4).DisplayName, varSelectedPerson4.Name)
+            Width: =282
+            X: =937
+            Y: =392
+            ZIndex: =31
+
+        Icon3_10 As icon.Cancel:
+            Height: =40
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateIf( ParticipantList, Name=Label7_11.Text, {Selected:false} );
+                If(IsBlank(varSelectedPerson4), Set(currentMember4, Blank()), Set(varSelectedPerson4, Blank()))
+            Width: =40
+            X: =1173
+            Y: =392
+            ZIndex: =32
+
+        Icon6_3 As icon.ChevronDown:
+            Height: =40
+            Icon: =Icon.ChevronDown
+            OnSelect: |-
+                =Set(showPopUp2, true);
+                Set(selectUser1Clicked, false);
+                Set(selectUser2Clicked, false);
+                Set(selectUser3Clicked, false);
+                Set(selectUser4Clicked, true);
+                Set(selectUser5Clicked, false);
+                Set(selectUser6Clicked, false);
+                Set(selectUser7Clicked, false);
+                Set(selectUser8Clicked, false);
+                Set(selectUser9Clicked, false);
+            Width: =58
+            X: =1223
+            Y: =392
+            ZIndex: =33
+
+    Label17 As label:
+        Align: =Align.Center
+        Text: ="Team Captain"
+        X: =90
+        Y: =392
+        ZIndex: =34
+
+    Label7_12 As label:
+        BorderThickness: =1
+        Text: |-
+            =/*varSelectedPerson1.DisplayName*/
+            /*If(IsBlank(varSelectedPerson1), Office365Users.UserProfile(currentMember1).DisplayName, varSelectedPerson1.DisplayName)*/
+            Office365Users.MyProfile().DisplayName
+        Width: =282
+        X: =241
+        Y: =392
+        ZIndex: =35
+
+    "'Team Member 5 Update' As group":
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =38
+
+        Label2_9 As label:
+            Align: =Align.Center
+            Text: ="Team Member 5"
+            X: =787
+            Y: =452
+            ZIndex: =36
+
+        Label7_13 As label:
+            BorderThickness: =1
+            Text: =If(IsBlank(varSelectedPerson5), Office365Users.UserProfile(currentMember5).DisplayName, varSelectedPerson5.Name)
+            Width: =282
+            X: =937
+            Y: =453
+            ZIndex: =37
+
+        Icon3_11 As icon.Cancel:
+            Height: =40
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateIf( ParticipantList, Name=Label7_13.Text, {Selected:false} );
+                If(IsBlank(varSelectedPerson5), Set(currentMember5, Blank()), Set(varSelectedPerson5, Blank()))
+            Width: =40
+            X: =1173
+            Y: =453
+            ZIndex: =38
+
+        Icon6_4 As icon.ChevronDown:
+            Height: =40
+            Icon: =Icon.ChevronDown
+            OnSelect: |-
+                =Set(showPopUp2, true);
+                Set(selectUser1Clicked, false);
+                Set(selectUser2Clicked, false);
+                Set(selectUser3Clicked, false);
+                Set(selectUser4Clicked, false);
+                Set(selectUser5Clicked, true);
+                Set(selectUser6Clicked, false);
+                Set(selectUser7Clicked, false);
+                Set(selectUser8Clicked, false);
+                Set(selectUser9Clicked, false);
+            Width: =58
+            X: =1222
+            Y: =453
+            ZIndex: =39
+
+    "'Team Member 6 Update' As group":
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =42
+
+        Label2_10 As label:
+            Align: =Align.Center
+            Text: ="Team Member 6"
+            X: =787
+            Y: =513
+            ZIndex: =40
+
+        Label7_14 As label:
+            BorderThickness: =1
+            Text: =If(IsBlank(varSelectedPerson6), Office365Users.UserProfile(currentMember6).DisplayName, varSelectedPerson6.DisplayName)
+            Width: =282
+            X: =937
+            Y: =513
+            ZIndex: =41
+
+        Icon3_12 As icon.Cancel:
+            Height: =40
+            Icon: =Icon.Cancel
+            OnSelect: =If(IsBlank(varSelectedPerson6), Set(currentMember6, Blank()), Set(varSelectedPerson6, Blank()))
+            Width: =40
+            X: =1173
+            Y: =513
+            ZIndex: =42
+
+        Icon6_5 As icon.ChevronDown:
+            Height: =40
+            Icon: =Icon.ChevronDown
+            OnSelect: |-
+                =Set(showPopUp, true);
+                Set(selectUser1Clicked, false);
+                Set(selectUser2Clicked, false);
+                Set(selectUser3Clicked, false);
+                Set(selectUser4Clicked, false);
+                Set(selectUser5Clicked, false);
+                Set(selectUser6Clicked, true);
+                Set(selectUser7Clicked, false);
+                Set(selectUser8Clicked, false);
+                Set(selectUser9Clicked, false);
+            Width: =58
+            X: =1223
+            Y: =513
+            ZIndex: =43
+
+    "'Team Member 7 Update' As group":
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =46
+
+        Label2_11 As label:
+            Align: =Align.Center
+            Text: ="Team Member 7"
+            X: =787
+            Y: =574
+            ZIndex: =44
+
+        Label7_15 As label:
+            BorderThickness: =1
+            Text: =If(IsBlank(varSelectedPerson7), Office365Users.UserProfile(currentMember7).DisplayName, varSelectedPerson7.DisplayName)
+            Width: =282
+            X: =937
+            Y: =574
+            ZIndex: =45
+
+        Icon3_13 As icon.Cancel:
+            Height: =40
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateIf( ParticipantList, Name=Label7_19.Text, {Selected:false} );
+                If(IsBlank(varSelectedPerson7), Set(currentMember7, Blank()), Set(varSelectedPerson7, Blank()))
+            Width: =40
+            X: =1173
+            Y: =574
+            ZIndex: =46
+
+        Icon6_6 As icon.ChevronDown:
+            Height: =40
+            Icon: =Icon.ChevronDown
+            OnSelect: |-
+                =Set(showPopUp, true);
+                Set(selectUser1Clicked, false);
+                Set(selectUser2Clicked, false);
+                Set(selectUser3Clicked, false);
+                Set(selectUser4Clicked, false);
+                Set(selectUser5Clicked, false);
+                Set(selectUser6Clicked, false);
+                Set(selectUser7Clicked, true);
+                Set(selectUser8Clicked, false);
+                Set(selectUser9Clicked, false);
+            Width: =58
+            X: =1223
+            Y: =574
+            ZIndex: =47
+
+    "'Delete PopUp' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =52
+
+        Rectangle6 As rectangle:
+            Fill: =RGBA(179, 179, 179, 0.7)
+            Height: =768
+            Visible: =showDeletePopUp
+            Width: =1366
+            ZIndex: =79
+
+        Rectangle7 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =263
+            Visible: =showDeletePopUp
+            Width: =478
+            X: =443
+            Y: =248
+            ZIndex: =80
+
+        Label18 As label:
+            Height: =44
+            Size: =16
+            Text: ="Are you sure you want to delete this team? All submissions will be deleted too."
+            Visible: =showDeletePopUp
+            Width: =435
+            X: =465
+            Y: =299
+            ZIndex: =81
+
+        Button2 As button:
+            Fill: =RGBA(255, 0, 0, 1)
+            Height: =98
+            HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+            OnSelect: |
+                =RemoveIf(QuestionSubmission, TeamID = LookUp(Info, 'Team Captain' = profileMail, ID));
+                RemoveIf(Info, 'Team Captain' = profileMail);
+                RemoveIf(ActivityDetailsList,Email=profileMail);
+                If(m1 <> Blank(), Patch(Mentor, LookUp(Mentor, Title = m1), {Selected : Blank()}));
+                If(m2 <> Blank(), Patch(Mentor, LookUp(Mentor, Title = m2), {Selected : Blank()}));
+                
+                UpdateIf(ParticipantList,Name=Label7_2.Text,{Selected:Blank()});
+                UpdateIf(ParticipantList,Name=Label7_3.Text,{Selected:Blank()});
+                UpdateIf(ParticipantList,Name=Label7_10.Text,{Selected:Blank()});
+                UpdateIf(ParticipantList,Name=Label7_11.Text,{Selected:Blank()});
+                UpdateIf(ParticipantList,Name=Label7_13.Text,{Selected:Blank()});
+                UpdateIf(ParticipantList,Name=Label7_18.Text,{Selected:Blank()});
+                UpdateIf(ParticipantList,Name=Label7_19.Text,{Selected:Blank()});
+                
+                Set(showDeletePopUp, false);
+                
+                Navigate(Profile);
+            Text: ="Yes, I'm Sure"
+            Visible: =showDeletePopUp
+            X: =720
+            Y: =378
+            ZIndex: =82
+
+        Button2_1 As button:
+            Fill: =RGBA(25, 140, 10, 1)
+            Height: =98
+            HoverFill: =ColorFade(RGBA(20, 120, 20, 1), -20%)
+            OnSelect: =Set(showDeletePopUp, false)
+            Text: ="No"
+            Visible: =showDeletePopUp
+            X: =487
+            Y: =378
+            ZIndex: =83
+
+        Icon7 As icon.Cancel:
+            Height: =38
+            Icon: =Icon.Cancel
+            OnSelect: =Set(showDeletePopUp, false)
+            Visible: =showDeletePopUp
+            Width: =42
+            X: =878
+            Y: =251
+            ZIndex: =84
+
+    "'Team Member 8 Update' As group":
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =56
+
+        Label2_14 As label:
+            Align: =Align.Center
+            Text: ="Mentor 1"
+            Visible: |
+                =false
+            X: =793
+            Y: =513
+            ZIndex: =48
+
+        Label7_18 As label:
+            BorderThickness: =1
+            Text: |-
+                =
+                If(IsBlank(varSelectedPerson8), Office365Users.UserProfile(currentMember8).DisplayName, varSelectedPerson8.Name)
+            Visible: |
+                =false
+            Width: =282
+            X: =943
+            Y: =513
+            ZIndex: =49
+
+        Icon3_16 As icon.Cancel:
+            Height: =40
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateIf( ParticipantList, Name=Label7_18.Text, {Selected:false} );
+                If(IsBlank(varSelectedPerson8), Set(currentMember8, Blank()), Set(varSelectedPerson8, Blank()))
+            Visible: |
+                =false
+            Width: =40
+            X: =1179
+            Y: =513
+            ZIndex: =50
+
+        Icon6_7 As icon.ChevronDown:
+            Height: =40
+            Icon: =Icon.ChevronDown
+            OnSelect: |-
+                =Set(showPopUp2, true);
+                Set(selectUser1Clicked, false);
+                Set(selectUser2Clicked, false);
+                Set(selectUser3Clicked, false);
+                Set(selectUser4Clicked, false);
+                Set(selectUser5Clicked, false);
+                Set(selectUser6Clicked, false);
+                Set(selectUser7Clicked, false);
+                Set(selectUser8Clicked, true);
+                Set(selectUser9Clicked, false);
+            Visible: |
+                =false
+            Width: =58
+            X: =1229
+            Y: =513
+            ZIndex: =51
+
+    "'Team Member 9 Update' As group":
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =60
+
+        Label2_15 As label:
+            Align: =Align.Center
+            Text: ="Mentor 2"
+            Visible: |
+                =false
+            X: =791
+            Y: =574
+            ZIndex: =52
+
+        Label7_19 As label:
+            BorderThickness: =1
+            Text: =If(IsBlank(varSelectedPerson9), Office365Users.UserProfile(currentMember9).DisplayName, varSelectedPerson9.Name)
+            Visible: |
+                =false
+            Width: =282
+            X: =941
+            Y: =574
+            ZIndex: =53
+
+        Icon3_17 As icon.Cancel:
+            Height: =40
+            Icon: =Icon.Cancel
+            OnSelect: =If(IsBlank(varSelectedPerson9), Set(currentMember9, Blank()), Set(varSelectedPerson9, Blank()))
+            Visible: |
+                =false
+            Width: =40
+            X: =1177
+            Y: =574
+            ZIndex: =54
+
+        Icon6_8 As icon.ChevronDown:
+            Height: =40
+            Icon: =Icon.ChevronDown
+            OnSelect: |-
+                =Set(showPopUp2, true);
+                Set(selectUser1Clicked, false);
+                Set(selectUser2Clicked, false);
+                Set(selectUser3Clicked, false);
+                Set(selectUser4Clicked, false);
+                Set(selectUser5Clicked, false);
+                Set(selectUser6Clicked, false);
+                Set(selectUser7Clicked, false);
+                Set(selectUser8Clicked, false);
+                Set(selectUser9Clicked, true);
+            Visible: |
+                =false
+            Width: =58
+            X: =1227
+            Y: =574
+            ZIndex: =55
+
+    "'User Exists PopUp_1' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =64
+
+        Rectangle2_3 As rectangle:
+            Fill: =RGBA(179, 179, 179, 0.7)
+            Height: =768
+            Visible: =userExistsPopUp
+            Width: =1366
+            ZIndex: =85
+
+        Rectangle8_1 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =227
+            Visible: =userExistsPopUp
+            Width: =354
+            X: =504
+            Y: =278
+            ZIndex: =86
+
+        Label20_1 As label:
+            Align: =Align.Center
+            Height: =90
+            Size: =16
+            Text: ="The selected user is in another team. Please select a different user"
+            Visible: =userExistsPopUp
+            Width: =312
+            X: =523
+            Y: =302
+            ZIndex: =87
+
+        Button3_1 As button:
+            OnSelect: |-
+                =Reset(TextInput2_1);
+                If(
+                    selectUser1Clicked, Set(varSelectedPerson1, Blank()), 
+                    selectUser2Clicked, Set(varSelectedPerson2, Blank()), 
+                    selectUser3Clicked, Set(varSelectedPerson3, Blank()), 
+                    selectUser4Clicked, Set(varSelectedPerson4, Blank()), 
+                    selectUser5Clicked, Set(varSelectedPerson5, Blank()), 
+                    selectUser6Clicked, Set(varSelectedPerson6, Blank()), 
+                    selectUser7Clicked, Set(varSelectedPerson7, Blank()), 
+                    selectUser8Clicked, Set(varSelectedPerson8, Blank()), 
+                    selectUser9Clicked, Set(varSelectedPerson9, Blank())
+                );
+                Set(userExistsPopUp, false);
+            Text: ="Okay"
+            Visible: =userExistsPopUp
+            X: =602
+            Y: =424
+            ZIndex: =88
+
+    "'Select Team Member PopUp_4' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =89
+
+        Rectangle2_13 As rectangle:
+            Fill: =RGBA(179, 179, 179, 0.7)
+            Height: =768
+            Visible: =showPopUp2
+            Width: =1366
+            ZIndex: =90
+
+        Rectangle3_5 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =656
+            Visible: =showPopUp2
+            Width: =559
+            X: =385
+            Y: =52
+            ZIndex: =91
+
+        Label8_6 As label:
+            Height: =42
+            Size: =16
+            Text: ="Select Team Member"
+            Visible: =showPopUp2
+            Width: =225
+            X: =544
+            Y: =99
+            ZIndex: =92
+
+        TextInput2_5 As text:
+            Default: |+
+                =If(
+                    selectUser1Clicked, varSelectedPerson1.Name,
+                    selectUser2Clicked, varSelectedPerson2.Name, 
+                    selectUser3Clicked, varSelectedPerson3.Name, 
+                    selectUser4Clicked, varSelectedPerson4.Name, 
+                    selectUser5Clicked, varSelectedPerson5.Name, 
+                    selectUser6Clicked, varSelectedPerson6.Name, 
+                    selectUser7Clicked, varSelectedPerson7.Name, 
+                    selectUser8Clicked, varSelectedPerson8.Name, 
+                    selectUser9Clicked, varSelectedPerson9.Name
+                )
+                
+            HintText: ="Search User"
+            Visible: =showPopUp2
+            X: =505
+            Y: =161
+            ZIndex: =93
+
+        "Gallery1_6 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+            Height: =366
+            Items: |
+                =/*If(
+                    IsBlank(TextInput2_1), 
+                    Office365Users.SearchUserV2({searchTerm:Left(User().FullName, 1), top:3}).value, 
+                    Office365Users.SearchUserV2({searchTerm:TextInput2_1.Text, top:3}).value
+                )*/
+                //Search(ParticipantList,TextInput2_1.Text,"Name")
+                Search(Filter(ParticipantList,ParticiptionRole="Team Member"&&!Selected),TextInput2_3.Text,"Name")
+            Layout: =Layout.Vertical
+            OnSelect: |-
+                =If(LookUp(
+                    Info, 
+                    'Team Captain' = ThisItem.Title || 
+                    'Team Member 1' = ThisItem.Title || 
+                    'Team Member 2' = ThisItem.Title || 
+                    'Team Member 3' = ThisItem.Title || 
+                    'Team Member 4' = ThisItem.Title || 
+                    'Team Member 5' = ThisItem.Title || 
+                    'Team Member 6' = ThisItem.Title || 
+                    'Team Member 7' = ThisItem.Title || 
+                    'Mentor 1' = ThisItem.Title || 
+                    'Mentor 2' = ThisItem.Title, true),
+                    Set(userExistsPopUp, true),
+                    If(
+                        selectUser1Clicked, Set(varSelectedPerson1, ThisItem), 
+                        selectUser2Clicked, Set(varSelectedPerson2, ThisItem), 
+                        selectUser3Clicked, Set(varSelectedPerson3, ThisItem),
+                        selectUser4Clicked, Set(varSelectedPerson4, ThisItem),
+                        selectUser5Clicked, Set(varSelectedPerson5, ThisItem),
+                        selectUser6Clicked, Set(varSelectedPerson6, ThisItem),
+                        selectUser7Clicked, Set(varSelectedPerson7, ThisItem), 
+                        selectUser8Clicked, Set(varSelectedPerson8, ThisItem), 
+                        selectUser9Clicked, Set(varSelectedPerson9, ThisItem)
+                    )
+                );
+            TemplatePadding: =0
+            TemplateSize: =Min(160, Self.Height - 60)
+            Transition: =Transition.Pop
+            Visible: =showPopUp2
+            Width: =425
+            X: =453
+            Y: =261
+            ZIndex: =94
+
+            Image2_7 As image:
+                BorderThickness: =2
+                Height: =101
+                Image: |-
+                    =/*With(
+                        {
+                            personImage: Office365Users.UserPhotoV2(ThisItem.Mail),
+                            hasphoto: Office365Users.UserPhotoMetadata(ThisItem.UserPrincipalName).HasPhoto
+                        },
+                        If(
+                            hasphoto,
+                            personImage,
+                            SampleImage
+                        )
+                    )*/
+                    Office365Users.UserPhotoV2(ThisItem.Title)
+                OnSelect: =Select(Parent)
+                PaddingBottom: =5
+                PaddingLeft: =5
+                PaddingRight: =5
+                PaddingTop: =5
+                RadiusBottomLeft: =10
+                RadiusBottomRight: =10
+                RadiusTopLeft: =10
+                RadiusTopRight: =10
+                Width: =103
+                X: =18
+                Y: =24
+                ZIndex: =1
+
+            Title1_5 As label:
+                Height: =46
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =14
+                Text: =ThisItem.Name
+                VerticalAlign: =VerticalAlign.Top
+                Width: =173
+                X: =134
+                Y: =39
+                ZIndex: =2
+
+            Subtitle1_5 As label:
+                Height: =Self.Size * 1.8
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =12
+                Text: |-
+                    =Concatenate("Area Of Expertise : ",ThisItem.AreaOfExpertise)
+                VerticalAlign: =VerticalAlign.Top
+                Width: =Title1_5.Width
+                X: =Title1_5.X
+                Y: =85
+                ZIndex: =3
+
+            Separator1_6 As rectangle:
+                Height: =0
+                OnSelect: =Select(Parent)
+                Width: =Parent.TemplateWidth
+                Y: =Parent.TemplateHeight - 1
+                ZIndex: =5
+
+            Icon17 As icon.NextArrow:
+                Height: =43
+                Icon: =Icon.NextArrow
+                OnSelect: |-
+                    =Set(memberProfilePopUp1,true);
+                    Set(memberProfile1,ThisItem)
+                X: =347
+                Y: =40
+                ZIndex: =6
+
+        Button4_7 As button:
+            Fill: =RGBA(180, 30, 38, 1)
+            HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+            OnSelect: |-
+                =Set(showPopUp2, false);
+                /*Set(selectUser1Clicked, false);*/
+                UpdateIf( ParticipantList, Name=TextInput2_5.Text, {Selected:true} );
+            Text: |-
+                ="Save
+                "
+            Visible: =showPopUp2
+            X: =603
+            Y: =650
+            ZIndex: =95
+
+        Icon1_10 As icon.Cancel:
+            Height: =53
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =/*Set(showPopUp, false);
+                 -- Set(selectUser1Clicked, false); -- 
+                If(
+                    selectUser1Clicked, Set(varSelectedPerson1, Blank()), 
+                    selectUser2Clicked, Set(varSelectedPerson2, Blank())
+                );*/
+                Set(showPopUp2, false);
+                /*Set(selectUser1Clicked, false);*/
+                If(
+                    selectUser1Clicked, Set(varSelectedPerson1, Blank()), 
+                    selectUser2Clicked, Set(varSelectedPerson2, Blank()), 
+                    selectUser3Clicked, Set(varSelectedPerson3, Blank()), 
+                    selectUser4Clicked, Set(varSelectedPerson4, Blank()), 
+                    selectUser5Clicked, Set(varSelectedPerson5, Blank()), 
+                    selectUser6Clicked, Set(varSelectedPerson6, Blank()), 
+                    selectUser7Clicked, Set(varSelectedPerson7, Blank()), 
+                    selectUser8Clicked, Set(varSelectedPerson8, Blank()), 
+                    selectUser9Clicked, Set(varSelectedPerson9, Blank())
+                );
+            Visible: =showPopUp2
+            Width: =46
+            X: =880
+            Y: =68
+            ZIndex: =96
+
+        Label9_7 As label:
+            Text: ="Suggested Users"
+            Visible: =showPopUp2
+            X: =575
+            Y: =221
+            ZIndex: =97
+
+        Icon2_6 As icon.Cancel:
+            Height: =35
+            Icon: =Icon.Cancel
+            OnSelect: |
+                =Reset(TextInput2_5);
+                If(
+                    selectUser1Clicked, Set(varSelectedPerson1, Blank()), 
+                    selectUser2Clicked, Set(varSelectedPerson2, Blank()), 
+                    selectUser3Clicked, Set(varSelectedPerson3, Blank()), 
+                    selectUser4Clicked, Set(varSelectedPerson4, Blank()), 
+                    selectUser5Clicked, Set(varSelectedPerson5, Blank()), 
+                    selectUser6Clicked, Set(varSelectedPerson6, Blank()), 
+                    selectUser7Clicked, Set(varSelectedPerson7, Blank()), 
+                    selectUser8Clicked, Set(varSelectedPerson8, Blank()), 
+                    selectUser9Clicked, Set(varSelectedPerson9, Blank())
+                );
+            Visible: =showPopUp2
+            Width: =35
+            X: =785
+            Y: =167
+            ZIndex: =98
+
+    "'Progress bar_7' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =93
+
+        Circle1_31 As circle:
+            Fill: =If(LookUp(Info, 'Team Captain' = profileMail || 'Team Member 1' = profileMail || 'Team Member 2' = profileMail || 'Team Member 3' = profileMail || 'Team Member 4' = profileMail || 'Team Member 5' = profileMail || 'Team Member 6' = profileMail || 'Team Member 7' = profileMail || 'Mentor 1' = profileMail || 'Mentor 2' = profileMail, true),RGBA(25, 140, 10, 1), RGBA(192, 192, 179, 1))
+            Height: =50
+            OnSelect: =Navigate(Profile)
+            Width: =50
+            X: =156
+            Y: =133
+            ZIndex: =4
+
+        Label22_31 As label:
+            Font: =Font.Arial
+            Height: =45
+            Text: ="Apply"
+            Width: =80
+            X: =233
+            Y: =133
+            ZIndex: =5
+
+        Icon8_23 As icon.ArrowRight:
+            Color: =RGBA(16, 0, 93, 1)
+            Height: =50
+            Icon: =Icon.ArrowRight
+            Width: =69
+            X: =314
+            Y: =130
+            ZIndex: =6
+
+        Circle1_30 As circle:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderThickness: =4
+            Fill: =If(LookUp(Info, 'Team Captain' = profileMail || 'Team Member 1' = profileMail || 'Team Member 2' = profileMail || 'Team Member 3' = profileMail || 'Team Member 4' = profileMail || 'Team Member 5' = profileMail || 'Team Member 6' = profileMail || 'Team Member 7' = profileMail || 'Mentor 1' = profileMail || 'Mentor 2' = profileMail, true),RGBA(25, 140, 10, 1), RGBA(192, 192, 179, 1))
+            Height: =50
+            OnSelect: =If(isTeamCaptain,Navigate('Manage Team'),Navigate('Team Builder Screen_old'))
+            Width: =50
+            X: =403
+            Y: =133
+            ZIndex: =7
+
+        Label22_30 As label:
+            Font: =Font.Arial
+            Height: =45
+            Text: ="Create Team"
+            Width: =115
+            X: =480
+            Y: =133
+            ZIndex: =8
+
+        Icon8_22 As icon.ArrowRight:
+            Color: =RGBA(16, 0, 93, 1)
+            Height: =50
+            Icon: =Icon.ArrowRight
+            Width: =69
+            X: =616
+            Y: =130
+            ZIndex: =9
+
+        Circle1_29 As circle:
+            Fill: =If(LookUp(QuestionSubmission, TeamID = TeamInformation.ID, true),RGBA(25, 140, 10, 1), RGBA(192, 192, 179, 1))
+            Height: =50
+            OnSelect: =Navigate('Question List')
+            Width: =50
+            X: =714
+            Y: =133
+            ZIndex: =10
+
+        Label22_29 As label:
+            Font: =Font.Arial
+            Height: =48
+            Text: ="Submit Idea"
+            Width: =117
+            X: =791
+            Y: =130
+            ZIndex: =11
+
+        Icon8_21 As icon.ArrowRight:
+            Color: =RGBA(16, 0, 93, 1)
+            Height: =50
+            Icon: =Icon.ArrowRight
+            Width: =69
+            X: =920
+            Y: =130
+            ZIndex: =12
+
+        Circle1_28 As circle:
+            Fill: =RGBA(192, 192, 179, 1)
+            Height: =50
+            OnSelect: =Navigate('Submitted List')
+            Width: =50
+            X: =1009
+            Y: =133
+            ZIndex: =13
+
+        Label22_28 As label:
+            Font: =Font.Arial
+            Height: =48
+            Text: ="Manage Ideas"
+            Width: =132
+            X: =1086
+            Y: =130
+            ZIndex: =14
+
+    "'Burger Menu_3' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =94
+
+        Rectangle9_3 As rectangle:
+            Fill: =RGBA(128, 128, 128, 0.7)
+            Height: =668
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =1366
+            Y: =100
+            ZIndex: =58
+
+        Rectangle10_3 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Height: =668
+            Visible: =showBurgerMenu
+            Width: =305
+            Y: =99
+            ZIndex: =59
+
+        Button13_15 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate(Home)
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Home"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =123
+            ZIndex: =64
+
+        Button13_14 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate(Profile)
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Profile"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =178
+            ZIndex: =65
+
+        Button13_13 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Question List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Problem Statements"
+            Visible: =showBurgerMenu
+            Width: =251
+            X: =27
+            Y: =233
+            ZIndex: =66
+
+        Button13_12 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Submitted List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Submissions"
+            Visible: =showBurgerMenu
+            Width: =148
+            X: =69
+            Y: =292
+            ZIndex: =67
+
+    Navbar_3 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =97
+
+        Rectangle4_3 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Width: =1366
+            ZIndex: =56
+
+        Image3_3 As image:
+            Height: =80
+            Image: =Office365Users.UserPhotoV2(Office365Users.MyProfile().Mail)
+            OnSelect: =Navigate(Profile)
+            RadiusBottomLeft: =80
+            RadiusBottomRight: =80
+            RadiusTopLeft: =80
+            RadiusTopRight: =80
+            Width: =80
+            X: =1246
+            Y: =10
+            ZIndex: =57
+
+        Label14_4 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =49
+            Size: =16
+            Text: =Office365Users.MyProfile().DisplayName
+            Width: =145
+            X: =1030
+            ZIndex: =60
+
+        Label15_4 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =45
+            Size: =14
+            Text: =Office365Users.MyProfile().JobTitle
+            Width: =265
+            X: =970
+            Y: =45
+            ZIndex: =61
+
+        Image1_3 As image:
+            Image: =Zensar_logo_wht_png
+            OnSelect: =Navigate(Home)
+            Width: =170
+            X: =135
+            ZIndex: =62
+
+        Icon10_3 As icon.Hamburger:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Hamburger
+            OnSelect: =Set(showBurgerMenu, true)
+            Visible: =!showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =63
+
+        Icon11_3 As icon.Cancel:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Cancel
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =68
+
+        Button5_5 As button:
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =99
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+            OnSelect: =Navigate(Profile)
+            Text: ="Button"
+            Width: =92
+            X: =1240
+            ZIndex: =69
+
+    "'Member Profile PopUp_1' As group":
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =104
+
+        Rectangle5_4 As rectangle:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =676
+            Visible: =memberProfilePopUp1
+            Width: =559
+            X: =385
+            Y: =52
+            ZIndex: =99
+
+        Label31_1 As label:
+            FontWeight: =FontWeight.Bold
+            Height: =57
+            Size: =20
+            Text: ="Member Details"
+            Visible: =memberProfilePopUp1
+            Width: =223
+            X: =556
+            Y: =66
+            ZIndex: =100
+
+        Form3_1 As form:
+            DataSource: =ParticipantList
+            DefaultMode: =FormMode.View
+            Height: =369
+            Item: =Gallery1_6.Selected
+            NumberOfColumns: =1
+            Visible: =memberProfilePopUp1
+            Width: =470
+            X: =435
+            Y: =313
+            ZIndex: =101
+
+            Name_DataCard2_1 As typedDataCard.textualEditCard:
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="Name"
+                Default: =ThisItem.Name
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ParticipantList],DataSourceInfo.DisplayName,"Name")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =50
+                MaxLength: =DataSourceInfo([@ParticipantList], DataSourceInfo.MaxLength, "Name")
+                Required: =false
+                Update: =DataCardValue29_1.Text
+                Width: =472
+                X: =0
+                Y: =0
+                ZIndex: =96
+
+                DataCardKey31_1 As label:
+                    AutoHeight: =true
+                    Height: =34
+                    Text: |-
+                        ="Name: "
+                    Width: =(Parent.Width - 60) * 0.4
+                    Wrap: =false
+                    X: =30
+                    Y: =10 + (DataCardValue29_1.Height / 2) - (Self.Height / 2)
+                    ZIndex: =1
+
+                DataCardValue29_1 As text:
+                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                    Default: =memberProfile1.Name
+                    DelayOutput: =true
+                    DisplayMode: =Parent.DisplayMode
+                    MaxLength: =Parent.MaxLength
+                    PaddingLeft: =5
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Tooltip: =Parent.DisplayName
+                    Width: =(Parent.Width - 60) * 0.6
+                    X: =224
+                    Y: =10
+                    ZIndex: =2
+
+                ErrorMessage31_1 As label:
+                    AutoHeight: =true
+                    Height: =10
+                    Live: =Live.Assertive
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =Parent.Error
+                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardValue29_1.Y + DataCardValue29_1.Height
+                    ZIndex: =3
+
+                StarVisible31_1 As label:
+                    Align: =Align.Center
+                    Height: =DataCardKey31_1.Height
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    Wrap: =false
+                    Y: =DataCardKey31_1.Y
+                    ZIndex: =4
+
+            Experience_DataCard3_1 As typedDataCard.textualEditCard:
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="Experience"
+                Default: =ThisItem.Experience
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ParticipantList],DataSourceInfo.DisplayName,"Experience")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =50
+                MaxLength: =DataSourceInfo([@ParticipantList], DataSourceInfo.MaxLength, "Experience")
+                Required: =true
+                Update: =DataCardValue30_1.Text
+                Width: =472
+                X: =0
+                Y: =1
+                ZIndex: =96
+
+                DataCardKey32_1 As label:
+                    AutoHeight: =true
+                    Height: =34
+                    Text: |-
+                        ="Experience: "
+                    Width: =(Parent.Width - 60) * 0.4
+                    Wrap: =false
+                    X: =30
+                    Y: =10 + (DataCardValue30_1.Height / 2) - (Self.Height / 2)
+                    ZIndex: =1
+
+                DataCardValue30_1 As text:
+                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                    Default: =memberProfile1.Experience
+                    DelayOutput: =true
+                    DisplayMode: =Parent.DisplayMode
+                    MaxLength: =Parent.MaxLength
+                    PaddingLeft: =5
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Tooltip: =Parent.DisplayName
+                    Width: =(Parent.Width - 60) * 0.6
+                    X: =224
+                    Y: =10
+                    ZIndex: =2
+
+                ErrorMessage32_1 As label:
+                    AutoHeight: =true
+                    Height: =10
+                    Live: =Live.Assertive
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =Parent.Error
+                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardValue30_1.Y + DataCardValue30_1.Height
+                    ZIndex: =3
+
+                StarVisible32_1 As label:
+                    Align: =Align.Center
+                    Height: =DataCardKey32_1.Height
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    Wrap: =false
+                    Y: =DataCardKey32_1.Y
+                    ZIndex: =4
+
+            AreaOfExpertise_DataCard4_1 As typedDataCard.textualEditCard:
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="AreaOfExpertise"
+                Default: =ThisItem.AreaOfExpertise
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ParticipantList],DataSourceInfo.DisplayName,"AreaOfExpertise")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =50
+                MaxLength: =DataSourceInfo([@ParticipantList], DataSourceInfo.MaxLength, "AreaOfExpertise")
+                Required: =true
+                Update: =DataCardValue32_1.Text
+                Width: =472
+                X: =0
+                Y: =2
+                ZIndex: =96
+
+                DataCardKey34_1 As label:
+                    Height: =37
+                    Text: |-
+                        ="Area Of Expertise: "
+                    Width: =162
+                    Wrap: =false
+                    X: =30
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue32_1 As text:
+                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                    Default: =memberProfile1.AreaOfExpertise
+                    DelayOutput: =true
+                    DisplayMode: =Parent.DisplayMode
+                    Height: =37
+                    MaxLength: =Parent.MaxLength
+                    PaddingLeft: =5
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Tooltip: =Parent.DisplayName
+                    Width: =234
+                    X: =224
+                    Y: =10
+                    ZIndex: =2
+
+                ErrorMessage34_1 As label:
+                    AutoHeight: =true
+                    Height: =10
+                    Live: =Live.Assertive
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =Parent.Error
+                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardValue32_1.Y + DataCardValue32_1.Height
+                    ZIndex: =3
+
+                StarVisible34_1 As label:
+                    Align: =Align.Center
+                    Height: =DataCardKey34_1.Height
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    Wrap: =false
+                    Y: =DataCardKey34_1.Y
+                    ZIndex: =4
+
+            AreaOfInterest_DataCard4_1 As typedDataCard.textualEditCard:
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="AreaOfInterest"
+                Default: =ThisItem.AreaOfInterest
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ParticipantList],DataSourceInfo.DisplayName,"AreaOfInterest")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =50
+                MaxLength: =DataSourceInfo([@ParticipantList], DataSourceInfo.MaxLength, "AreaOfInterest")
+                Required: =true
+                Update: =DataCardValue33_1.Text
+                Width: =472
+                X: =0
+                Y: =3
+                ZIndex: =96
+
+                DataCardKey35_1 As label:
+                    AutoHeight: =true
+                    Height: =34
+                    Text: |-
+                        ="Area Of Interest: "
+                    Width: =152
+                    Wrap: =false
+                    X: =30
+                    Y: =10 + (DataCardValue33_1.Height / 2) - (Self.Height / 2)
+                    ZIndex: =1
+
+                DataCardValue33_1 As text:
+                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                    Default: =memberProfile1.AreaOfInterest
+                    DelayOutput: =true
+                    DisplayMode: =Parent.DisplayMode
+                    Height: =37
+                    MaxLength: =Parent.MaxLength
+                    PaddingLeft: =5
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Tooltip: =Parent.DisplayName
+                    Width: =217
+                    X: =224
+                    Y: =10
+                    ZIndex: =2
+
+                ErrorMessage35_1 As label:
+                    AutoHeight: =true
+                    Height: =10
+                    Live: =Live.Assertive
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =Parent.Error
+                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardValue33_1.Y + DataCardValue33_1.Height
+                    ZIndex: =3
+
+                StarVisible35_1 As label:
+                    Align: =Align.Center
+                    Height: =DataCardKey35_1.Height
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    Wrap: =false
+                    Y: =DataCardKey35_1.Y
+                    ZIndex: =4
+
+            NoOfInternalCertificates_DataCard2_1 As typedDataCard.numberEditCard:
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="NoOfInternalCertificates"
+                Default: =ThisItem.NoOfInternalCertificates
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ParticipantList],DataSourceInfo.DisplayName,"NoOfInternalCertificates")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =50
+                Required: =false
+                Update: =Value(DataCardValue34_1.Text)
+                Width: =472
+                X: =0
+                Y: =4
+                ZIndex: =96
+
+                DataCardKey36_1 As label:
+                    Height: =37
+                    Text: |-
+                        ="No Of Internal Certificates: "
+                    Width: =250
+                    Wrap: =false
+                    X: =30
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue34_1 As text:
+                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                    Default: =memberProfile1.NoOfInternalCertificates
+                    DelayOutput: =true
+                    DisplayMode: =Parent.DisplayMode
+                    Format: =TextFormat.Number
+                    PaddingLeft: =5
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Tooltip: =Parent.DisplayName
+                    Width: =200
+                    X: =265
+                    Y: =2
+                    ZIndex: =2
+
+                ErrorMessage36_1 As label:
+                    AutoHeight: =true
+                    Height: =10
+                    Live: =Live.Assertive
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =Parent.Error
+                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardValue34_1.Y + DataCardValue34_1.Height
+                    ZIndex: =3
+
+                StarVisible36_1 As label:
+                    Align: =Align.Center
+                    Height: =DataCardKey36_1.Height
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    Wrap: =false
+                    Y: =DataCardKey36_1.Y
+                    ZIndex: =4
+
+            NoOfExternalCertificates_DataCard2_1 As typedDataCard.numberEditCard:
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="NoOfExternalCertificates"
+                Default: =ThisItem.NoOfExternalCertificates
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ParticipantList],DataSourceInfo.DisplayName,"NoOfExternalCertificates")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =50
+                Required: =false
+                Update: =Value(DataCardValue35_1.Text)
+                Width: =472
+                X: =0
+                Y: =5
+                ZIndex: =96
+
+                DataCardKey37_1 As label:
+                    Height: =34
+                    Text: |-
+                        ="No Of External Certificates: "
+                    Width: =240
+                    Wrap: =false
+                    X: =30
+                    Y: =13
+                    ZIndex: =1
+
+                DataCardValue35_1 As text:
+                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                    Default: =memberProfile1.NoOfExternalCertificates
+                    DelayOutput: =true
+                    DisplayMode: =Parent.DisplayMode
+                    Format: =TextFormat.Number
+                    PaddingLeft: =5
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Tooltip: =Parent.DisplayName
+                    Width: =200
+                    X: |-
+                        =//DataCardKey37.X + DataCardKey37.Width
+                        265
+                    Y: =10
+                    ZIndex: =2
+
+                ErrorMessage37_1 As label:
+                    AutoHeight: =true
+                    Height: =10
+                    Live: =Live.Assertive
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =Parent.Error
+                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardValue35_1.Y + DataCardValue35_1.Height
+                    ZIndex: =3
+
+                StarVisible37_1 As label:
+                    Align: =Align.Center
+                    Height: =DataCardKey37_1.Height
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    Wrap: =false
+                    Y: =DataCardKey37_1.Y
+                    ZIndex: =4
+
+        Image6_3 As image:
+            BorderThickness: =2
+            Height: =103
+            Image: =Office365Users.UserPhoto(memberProfile1.Title)
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Visible: =memberProfilePopUp1
+            X: =615
+            Y: =139
+            ZIndex: =102
+
+        Icon15_1 As icon.CancelBadge:
+            Height: =62
+            Icon: =Icon.CancelBadge
+            OnSelect: =Set(memberProfilePopUp1,false)
+            Visible: =memberProfilePopUp1
+            Width: =46
+            X: =884
+            Y: =59
+            ZIndex: =103
+

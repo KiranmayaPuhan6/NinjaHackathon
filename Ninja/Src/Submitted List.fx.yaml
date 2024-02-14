@@ -1,0 +1,497 @@
+"'Submitted List' As screen":
+    OnVisible: |-
+        =Set(showBurgerMenu, false);
+        If(LookUp(Info, 'Team Captain' = profileMail, true), Set(EditDelete, true), Set(EditDelete, false));
+        Set(varAttachments,1)
+
+    Gallery2 As gallery.galleryVertical:
+        BorderThickness: =2
+        Height: =336
+        Items: =Filter(QuestionSubmission,TeamID = tID)
+        Layout: =Layout.Vertical
+        TemplateFill: =If (ThisItem.IsSelected,Color.PaleTurquoise,Color.AliceBlue)
+        TemplateSize: =85
+        Width: =1197
+        X: =88
+        Y: =317
+        ZIndex: =1
+
+        Label2_17 As label:
+            Align: =Align.Center
+            Height: =71
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Title
+            Width: =322
+            X: =4
+            Y: =6
+            ZIndex: =1
+
+        Label1_4 As label:
+            Align: =Align.Center
+            Height: =81
+            OnSelect: =Select(Parent)
+            Text: =First(ThisItem.Attachments).DisplayName
+            Width: =230
+            X: =396
+            Y: =1
+            ZIndex: =2
+
+        Icon1_2 As icon.Download:
+            Height: =51
+            Icon: =Icon.Download
+            OnSelect: =Launch(First(ThisItem.Attachments).AbsoluteUri)
+            Width: =49
+            X: =722
+            Y: =12
+            ZIndex: =3
+
+        Icon2_4 As icon.Edit:
+            DisplayMode: =If(EditDelete || LookUp(Mentor,Title=Office365Users.MyProfile().Mail,false), DisplayMode.Edit, DisplayMode.Disabled)
+            Height: =61
+            Icon: =Icon.Edit
+            OnSelect: =Navigate('Question Resubmission')
+            Visible: =!LookUp(QuestionSubmission,LookUp(Info,User().Email='Team Captain',ID)=TeamID && ThisItem.QuestionID=QuestionID,Graded)
+            Width: =49
+            X: =891
+            Y: =7
+            ZIndex: =4
+
+        Icon4_2 As icon.Trash:
+            DisplayMode: =If(EditDelete, DisplayMode.Edit, DisplayMode.Disabled)
+            Height: =42
+            Icon: =Icon.Trash
+            OnSelect: |-
+                =UpdateContext({selectedSubmission:ThisItem});
+                Set(submissionDeletePopUp, true);
+            Visible: =!LookUp(QuestionSubmission,LookUp(Info,User().Email='Team Captain',ID)=TeamID && ThisItem.QuestionID=QuestionID,Graded)
+            Width: =49
+            X: =1075
+            Y: =16
+            ZIndex: =5
+
+        Label36 As label:
+            FontWeight: =FontWeight.Bold
+            OnSelect: =Select(Parent)
+            Text: ="Already Graded"
+            Visible: =LookUp(QuestionSubmission,LookUp(Info,User().Email='Team Captain',ID)=TeamID && ThisItem.QuestionID=QuestionID,Graded)
+            X: =940
+            Y: =23
+            ZIndex: =6
+
+    Label7_21 As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 18, 107, 1)
+        Height: =44
+        Text: ="Title"
+        Width: =93
+        X: =206
+        Y: =253
+        ZIndex: =2
+
+    Label8_3 As label:
+        Align: =Align.Center
+        Text: ="Last Submission"
+        Width: =145
+        X: =521
+        Y: =255
+        ZIndex: =3
+
+    Label9_3 As label:
+        Align: =Align.Center
+        Text: ="Download File"
+        X: =764
+        Y: =251
+        ZIndex: =4
+
+    Label10_2 As label:
+        Align: =Align.Center
+        Height: =39
+        Text: ="Edit File"
+        Width: =95
+        X: =970
+        Y: =251
+        ZIndex: =5
+
+    Label11_11 As label:
+        Align: =Align.Center
+        Height: =46
+        Text: ="Delete Submission"
+        Width: =172
+        X: =1113
+        Y: =247
+        ZIndex: =6
+
+    Icon8_7 As icon.BackArrow:
+        Height: =50
+        Icon: =Icon.BackArrow
+        OnSelect: =Navigate(Profile)
+        Width: =50
+        X: =48
+        Y: =133
+        ZIndex: =18
+
+    "'Progress bar_9' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =29
+
+        Circle1_39 As circle:
+            Fill: =If(LookUp(Info, 'Team Captain' = profileMail || 'Team Member 1' = profileMail || 'Team Member 2' = profileMail || 'Team Member 3' = profileMail || 'Team Member 4' = profileMail || 'Team Member 5' = profileMail || 'Team Member 6' = profileMail || 'Team Member 7' = profileMail || 'Mentor 1' = profileMail || 'Mentor 2' = profileMail, true),RGBA(25, 140, 10, 1), RGBA(192, 192, 179, 1))
+            Height: =50
+            OnSelect: =Navigate(Profile)
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =50
+            X: =156
+            Y: =133
+            ZIndex: =7
+
+        Label22_39 As label:
+            Font: =Font.Arial
+            Height: =45
+            Text: ="Apply"
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =80
+            X: =233
+            Y: =133
+            ZIndex: =8
+
+        Icon8_29 As icon.ArrowRight:
+            Color: =RGBA(16, 0, 93, 1)
+            Height: =50
+            Icon: =Icon.ArrowRight
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =69
+            X: =314
+            Y: =130
+            ZIndex: =9
+
+        Circle1_38 As circle:
+            Fill: =If(LookUp(Info, 'Team Captain' = profileMail || 'Team Member 1' = profileMail || 'Team Member 2' = profileMail || 'Team Member 3' = profileMail || 'Team Member 4' = profileMail || 'Team Member 5' = profileMail || 'Team Member 6' = profileMail || 'Team Member 7' = profileMail || 'Mentor 1' = profileMail || 'Mentor 2' = profileMail, true),RGBA(25, 140, 10, 1), RGBA(192, 192, 179, 1))
+            Height: =50
+            OnSelect: =If(isTeamCaptain,Navigate('Manage Team'),Navigate('Team Builder Screen_old'))
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =50
+            X: =403
+            Y: =133
+            ZIndex: =10
+
+        Label22_38 As label:
+            Font: =Font.Arial
+            Height: =45
+            Text: ="Create Team"
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =115
+            X: =480
+            Y: =133
+            ZIndex: =11
+
+        Icon8_28 As icon.ArrowRight:
+            Color: =RGBA(16, 0, 93, 1)
+            Height: =50
+            Icon: =Icon.ArrowRight
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =69
+            X: =616
+            Y: =130
+            ZIndex: =12
+
+        Circle1_37 As circle:
+            Fill: =If(LookUp(QuestionSubmission, TeamID = TeamInformation.ID, true),RGBA(25, 140, 10, 1), RGBA(192, 192, 179, 1))
+            Height: =50
+            OnSelect: =Navigate('Question List')
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =50
+            X: =714
+            Y: =133
+            ZIndex: =13
+
+        Label22_37 As label:
+            Font: =Font.Arial
+            Height: =48
+            Text: ="Submit Idea"
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =117
+            X: =791
+            Y: =130
+            ZIndex: =14
+
+        Icon8_27 As icon.ArrowRight:
+            Color: =RGBA(16, 0, 93, 1)
+            Height: =50
+            Icon: =Icon.ArrowRight
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =69
+            X: =920
+            Y: =130
+            ZIndex: =15
+
+        Circle1_36 As circle:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderThickness: =4
+            Fill: =RGBA(192, 192, 179, 1)
+            Height: =50
+            OnSelect: =Navigate('Submitted List')
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =50
+            X: =1009
+            Y: =133
+            ZIndex: =16
+
+        Label22_36 As label:
+            Font: =Font.Arial
+            Height: =48
+            Text: ="Manage Ideas"
+            Visible: =If(MentorApply || !isTeamCaptain,false,true)
+            Width: =132
+            X: =1086
+            Y: =130
+            ZIndex: =17
+
+    "'Submission Delete PopUp' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =45
+
+        Rectangle2_5 As rectangle:
+            Fill: =RGBA(179, 179, 179, 0.7)
+            Height: =768
+            Visible: =submissionDeletePopUp
+            Width: =1366
+            ZIndex: =33
+
+        Rectangle7_1 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =263
+            Visible: =submissionDeletePopUp
+            Width: =478
+            X: =443
+            Y: =248
+            ZIndex: =34
+
+        Label18_1 As label:
+            Height: =44
+            Size: =16
+            Text: ="Are you sure you want to delete this submission?"
+            Visible: =submissionDeletePopUp
+            Width: =435
+            X: =465
+            Y: =299
+            ZIndex: =35
+
+        Button2_3 As button:
+            Fill: =RGBA(255, 0, 0, 1)
+            Height: =98
+            HoverFill: =ColorFade(RGBA(180, 20, 20, 1), -20%)
+            OnSelect: |
+                =Remove(QuestionSubmission,selectedSubmission);
+                Set(submissionDeletePopUp, false);
+            Text: ="Yes, I'm Sure"
+            Visible: =submissionDeletePopUp
+            X: =720
+            Y: =378
+            ZIndex: =36
+
+        Button2_4 As button:
+            Fill: =RGBA(25, 140, 10, 1)
+            Height: =98
+            HoverFill: =ColorFade(RGBA(20, 120, 20, 1), -20%)
+            OnSelect: =Set(submissionDeletePopUp, false)
+            Text: ="No"
+            Visible: =submissionDeletePopUp
+            X: =487
+            Y: =378
+            ZIndex: =37
+
+        Icon7_1 As icon.Cancel:
+            Height: =38
+            Icon: =Icon.Cancel
+            OnSelect: =Set(submissionDeletePopUp, false)
+            Visible: =submissionDeletePopUp
+            Width: =42
+            X: =878
+            Y: =251
+            ZIndex: =38
+
+    "'Burger Menu_7' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =57
+
+        Rectangle9_7 As rectangle:
+            Fill: =RGBA(128, 128, 128, 0.7)
+            Height: =668
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =1366
+            Y: =100
+            ZIndex: =25
+
+        Rectangle10_7 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Height: =668
+            Visible: =showBurgerMenu
+            Width: =305
+            Y: =99
+            ZIndex: =26
+
+        Button13_31 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate(Home)
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Home"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =123
+            ZIndex: =27
+
+        Button13_30 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate(Profile)
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Profile"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =178
+            ZIndex: =28
+
+        Button13_29 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Question List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Problem Statements"
+            Visible: =showBurgerMenu
+            Width: =251
+            X: =27
+            Y: =233
+            ZIndex: =29
+
+        Button13_28 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Submitted List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Submissions"
+            Visible: =showBurgerMenu
+            Width: =148
+            X: =69
+            Y: =292
+            ZIndex: =30
+
+    Navbar_7 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =60
+
+        Rectangle4_7 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Width: =1366
+            ZIndex: =19
+
+        Image3_7 As image:
+            Height: =80
+            Image: =Office365Users.UserPhotoV2(Office365Users.MyProfile().Id)
+            OnSelect: =Navigate(Profile)
+            RadiusBottomLeft: =80
+            RadiusBottomRight: =80
+            RadiusTopLeft: =80
+            RadiusTopRight: =80
+            Width: =80
+            X: =1246
+            Y: =10
+            ZIndex: =20
+
+        Label14_8 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =49
+            Size: =16
+            Text: =Office365Users.MyProfile().DisplayName
+            Width: =145
+            X: =1030
+            ZIndex: =21
+
+        Label15_8 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =45
+            Size: =14
+            Text: =Office365Users.MyProfile().JobTitle
+            Width: =265
+            X: =970
+            Y: =45
+            ZIndex: =22
+
+        Image1_7 As image:
+            Image: =Zensar_logo_wht_png
+            OnSelect: =Navigate(Home)
+            Width: =170
+            X: =135
+            ZIndex: =23
+
+        Icon10_7 As icon.Hamburger:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Hamburger
+            OnSelect: =Set(showBurgerMenu, true)
+            Visible: =!showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =24
+
+        Icon11_7 As icon.Cancel:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Cancel
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =31
+
+        Button5_9 As button:
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =99
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+            OnSelect: =Navigate(Profile)
+            Text: ="Button"
+            Width: =92
+            X: =1240
+            ZIndex: =32
+

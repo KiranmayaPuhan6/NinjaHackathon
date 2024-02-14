@@ -1,0 +1,679 @@
+Activity As screen:
+    OnVisible: =ResetForm(Form1_3)
+
+    Form1_3 As form:
+        BorderThickness: =3
+        DataSource: =ActivityDetailsList
+        Height: =494
+        Item: =Defaults(ActivityDetailsList)
+        Width: =1114
+        X: =112
+        Y: =198
+        ZIndex: =1
+
+        Name_DataCard3 As typedDataCard.textualViewCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="{Name}"
+            Default: =ThisItem.Name
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@ActivityDetailsList],DataSourceInfo.DisplayName,"{Name}")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =100
+            Required: =false
+            Width: =370
+            X: =2
+            Y: =0
+            ZIndex: =1
+
+            DataCardKey19 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: ="Team Name"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue16 As label:
+                AutoHeight: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =27
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Default
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey19.Y + DataCardKey19.Height + 5
+                ZIndex: =2
+
+            Label37 As label:
+                Height: =80
+                Text: =LookUp(Info,User().Email='Team Captain',Title)
+                Width: =478
+                X: =30
+                Y: =40
+                ZIndex: =3
+
+        logo_DataCard2 As typedDataCard.addLargePictureCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="logo"
+            Default: =ThisItem.logo
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@ActivityDetailsList],DataSourceInfo.DisplayName,"logo")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =Image10.Image
+            Width: =538
+            X: =0
+            Y: =2
+            ZIndex: =1
+
+            DataCardKey38 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: ="Logo for the team"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            Image10 As image:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DisplayMode: =Parent.DisplayMode
+                Height: =AddPicture3.Height
+                Image: =If(IsBlank(AddPicture3.Media), Parent.Default, AddPicture3.Media)
+                Tooltip: =Parent.DisplayName
+                Width: =AddPicture3.Width
+                X: =AddPicture3.X
+                Y: =AddPicture3.Y
+                ZIndex: =2
+
+            AddPicture3 As addMedia:
+                BorderThickness: =3
+                Height: =200
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey38.Y + DataCardKey38.Height + 5
+                ZIndex: =3
+
+            ErrorMessage33 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =Image10.Y + Image10.Height
+                ZIndex: =4
+
+            StarVisible33 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =DataCardKey38.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey38.Y
+                ZIndex: =5
+
+        Collage_DataCard1 As typedDataCard.addLargePictureCard:
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =0
+            DataField: ="collage"
+            Default: =ThisItem.Collage
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@ActivityDetailsList],DataSourceInfo.DisplayName,"collage")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =Image11.Image
+            Width: =530
+            X: =1
+            Y: =2
+            ZIndex: =1
+
+            DataCardKey39 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            Image11 As image:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DisplayMode: =Parent.DisplayMode
+                Height: =AddPicture4.Height
+                Image: =If(IsBlank(AddPicture4.Media), Parent.Default, AddPicture4.Media)
+                Tooltip: =Parent.DisplayName
+                Width: =AddPicture4.Width
+                X: =AddPicture4.X
+                Y: =AddPicture4.Y
+                ZIndex: =2
+
+            AddPicture4 As addMedia:
+                BorderThickness: =3
+                Height: =200
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey39.Y + DataCardKey39.Height + 5
+                ZIndex: =3
+
+            ErrorMessage38 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =Image11.Y + Image11.Height
+                ZIndex: =4
+
+            StarVisible38 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =DataCardKey39.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey39.Y
+                ZIndex: =5
+
+        Email_DataCard1 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Email"
+            Default: =ThisItem.Email
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@ActivityDetailsList],DataSourceInfo.DisplayName,"Email")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =100
+            MaxLength: =DataSourceInfo([@ActivityDetailsList], DataSourceInfo.MaxLength, "Email")
+            Required: =false
+            Update: =DataCardValue49.Text
+            Width: =538
+            X: =0
+            Y: =0
+            ZIndex: =2
+
+            DataCardKey54 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue49 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Office365Users.MyProfile().Mail
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode.View
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey54.Y + DataCardKey54.Height + 5
+                ZIndex: =2
+
+            ErrorMessage54 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue49.Y + DataCardValue49.Height
+                ZIndex: =3
+
+            StarVisible54 As label:
+                Align: =Align.Center
+                Height: =DataCardKey54.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey54.Y
+                ZIndex: =4
+
+        Title_DataCard5 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Title"
+            Default: =ThisItem.Title
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@ActivityDetailsList],DataSourceInfo.DisplayName,"Title")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =99
+            MaxLength: =DataSourceInfo([@ActivityDetailsList], DataSourceInfo.MaxLength, "Title")
+            Required: =true
+            Update: =DataCardValue46.Text
+            Width: =538
+            X: =0
+            Y: =1
+            ZIndex: =2
+
+            DataCardKey51 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: ="Tagline"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue46 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey51.Y + DataCardKey51.Height + 5
+                ZIndex: =2
+
+            ErrorMessage51 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue46.Y + DataCardValue46.Height
+                ZIndex: =3
+
+            StarVisible51 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =DataCardKey51.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey51.Y
+                ZIndex: =4
+
+        HackathonHashtagIdea_DataCard1 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="HackathonHashtagIdea"
+            Default: =ThisItem.HackathonHashtagIdea
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@ActivityDetailsList],DataSourceInfo.DisplayName,"HackathonHashtagIdea")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =31
+            MaxLength: =DataSourceInfo([@ActivityDetailsList], DataSourceInfo.MaxLength, "HackathonHashtagIdea")
+            Required: =true
+            Update: =DataCardValue50.Text
+            Width: =530
+            X: =2
+            Y: =1
+            ZIndex: =2
+
+            DataCardKey55 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue50 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey55.Y + DataCardKey55.Height + 5
+                ZIndex: =2
+
+            ErrorMessage55 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue50.Y + DataCardValue50.Height
+                ZIndex: =3
+
+            StarVisible55 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =DataCardKey55.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey55.Y
+                ZIndex: =4
+
+    Button2_11 As button:
+        DisplayMode: =If(Form1_3.Valid,DisplayMode.Edit,DisplayMode.Disabled)
+        Fill: =RGBA(180, 30, 38, 1)
+        OnSelect: |-
+            =If(Form1_3.Valid, UpdateContext({showActivityPopUp : true}));
+            SubmitForm(Form1_3);
+            ResetForm(Form1_3)
+        Text: ="Register"
+        X: =603
+        Y: =708
+        ZIndex: =2
+
+    Label5_5 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Text: =User().FullName
+        X: =1065
+        Y: =18
+        ZIndex: =3
+
+    Label6_3 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =42
+        Text: =Office365Users.MyProfile().JobTitle
+        Width: =256
+        X: =959
+        Y: =58
+        ZIndex: =4
+
+    Label4_13 As label:
+        Align: =Align.Center
+        Font: =Font.Arial
+        Height: =55
+        Size: =24
+        Text: ="Fun Activity"
+        Width: =355
+        X: =506
+        Y: =123
+        ZIndex: =13
+
+    Icon8_38 As icon.BackArrow:
+        Height: =50
+        Icon: =Icon.BackArrow
+        OnSelect: =Navigate(Profile)
+        Width: =50
+        X: =48
+        Y: =133
+        ZIndex: =14
+
+    activityPopUp As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =24
+
+        Rectangle1_5 As rectangle:
+            Fill: =RGBA(128, 128, 128, 0.7)
+            Height: =768
+            Visible: =showActivityPopUp
+            Width: =1366
+            ZIndex: =20
+
+        Rectangle5_6 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =297
+            Visible: =showActivityPopUp
+            Width: =477
+            X: =485
+            Y: =255
+            ZIndex: =21
+
+        Label16_7 As label:
+            Align: =Align.Center
+            Height: =112
+            Size: =18
+            Text: ="Happy Hackathoning!"
+            Visible: =showActivityPopUp
+            Width: =392
+            X: =527
+            Y: =280
+            ZIndex: =22
+
+        Button14_5 As button:
+            Fill: =RGBA(180, 30, 38, 1)
+            Height: =78
+            OnSelect: |-
+                =UpdateContext({showActivityPopUp:false});
+                Navigate(Profile)
+            Text: ="Okay"
+            Visible: =showActivityPopUp
+            Width: =220
+            X: =613
+            Y: =421
+            ZIndex: =23
+
+    "'Burger Menu_15' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =36
+
+        Rectangle9_15 As rectangle:
+            Fill: =RGBA(128, 128, 128, 0.7)
+            Height: =668
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =1366
+            Y: =100
+            ZIndex: =30
+
+        Rectangle10_15 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Height: =668
+            Visible: =showBurgerMenu
+            Width: =305
+            Y: =99
+            ZIndex: =31
+
+        Button13_57 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate(Home)
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Home"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =123
+            ZIndex: =32
+
+        Button13_56 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate(Profile)
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Profile"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =178
+            ZIndex: =33
+
+        Button13_55 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Question List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Problem Statements"
+            Visible: =showBurgerMenu
+            Width: =251
+            X: =27
+            Y: =233
+            ZIndex: =34
+
+        Button13_54 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Submitted List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Submissions"
+            Visible: =showBurgerMenu
+            Width: =148
+            X: =69
+            Y: =292
+            ZIndex: =35
+
+    Navbar_16 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =39
+
+        Rectangle4_16 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Width: =1366
+            ZIndex: =24
+
+        Image3_14 As image:
+            Height: =80
+            Image: =Office365Users.UserPhotoV2(Office365Users.MyProfile().Id)
+            OnSelect: =Navigate(Profile)
+            RadiusBottomLeft: =80
+            RadiusBottomRight: =80
+            RadiusTopLeft: =80
+            RadiusTopRight: =80
+            Width: =80
+            X: =1246
+            Y: =10
+            ZIndex: =25
+
+        Label14_16 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =49
+            Size: =16
+            Text: =Office365Users.MyProfile().DisplayName
+            Width: =145
+            X: =1030
+            ZIndex: =26
+
+        Label15_17 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =45
+            Size: =14
+            Text: =Office365Users.MyProfile().JobTitle
+            Width: =265
+            X: =970
+            Y: =45
+            ZIndex: =27
+
+        Image1_16 As image:
+            Image: =Zensar_logo_wht_png
+            OnSelect: =Navigate(Home)
+            Width: =170
+            X: =135
+            ZIndex: =28
+
+        Icon10_15 As icon.Hamburger:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Hamburger
+            OnSelect: =Set(showBurgerMenu, true)
+            Visible: =!showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =29
+
+        Icon11_16 As icon.Cancel:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Cancel
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =37
+
+        Button5_14 As button:
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =99
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+            OnSelect: =If(MentorApply,Navigate('Mentor Profile'))
+            Text: ="Button"
+            Width: =92
+            X: =1240
+            ZIndex: =38
+

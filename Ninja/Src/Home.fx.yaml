@@ -1,0 +1,948 @@
+"Home As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+    OnVisible: |
+        =Set(profileMail, Office365Users.MyProfile().Mail);
+        Set(varTimer1,timeNow);Set(varResetTimer, false);
+        Refresh(Mentor);
+        Refresh(Info);
+        Set(endDate,DateTime(2024,03,27,10,00,00));
+
+    Canvas1_1 As fluidGrid.fluidGridWithBlankCard:
+        BorderThickness: =0
+        Height: =668
+        Width: =Parent.Width
+        Y: =100
+        ZIndex: =1
+
+        Banner_2 As dataCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =0
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(241, 244, 249, 1)
+            Height: =510
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            Button1_4 As button:
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =442
+                HoverFill: =
+                Text: =""
+                Width: =1332
+                X: =8
+                Y: =6
+                ZIndex: =1
+
+            "MainGallery_1 As gallery.'BrowseLayout_Horizontal_TwoTextOneImageVariant_ver4.0'":
+                Height: =452
+                Items: =Filter(Banner,Order=varItem)
+                TemplatePadding: =0
+                TemplateSize: =1349
+                Width: =1364
+                X: =1
+                Y: =6
+                ZIndex: =2
+
+                Image4_3 As image:
+                    CalculateOriginalDimensions: =true
+                    Height: =450
+                    Image: =First(ThisItem.Attachments).AbsoluteUri
+                    OnSelect: =Select(Parent)
+                    Width: =1349
+                    ZIndex: =1
+
+            "ScrollGallery_1 As gallery.'BrowseLayout_Horizontal_TwoTextOneImageVariant_ver4.0'":
+                Height: =36
+                Items: =Banner
+                ShowScrollbar: =false
+                TemplatePadding: =0
+                TemplateSize: =50
+                Width: =211
+                X: =572
+                Y: =474
+                ZIndex: =3
+
+                Circle5_1 As circle:
+                    Fill: =If(ThisItem.Order = varItem,RGBA(56, 96, 178, 1),RGBA(56, 96, 178, 0.5))
+                    Height: =20
+                    OnSelect: |
+                        =Set(varItem,ThisItem.Order);
+                    Width: =20
+                    X: =25
+                    ZIndex: =3
+
+            Icon1_6 As icon.ChevronRight:
+                Icon: =Icon.ChevronRight
+                OnSelect: |
+                    =If(
+                    varItem>0 && varItem<varRows, Set(varItem, varItem+1),
+                    varItem=varRows, Set(varItem, 1)
+                    );
+                    Set(varStart, false);
+                    Reset(Timer2_2);
+                    Set(varStart, true)
+                X: =1276
+                Y: =182
+                ZIndex: =4
+
+            Icon1_5 As icon.ChevronRight:
+                Icon: =Icon.ChevronLeft
+                OnSelect: |-
+                    =If(
+                    varItem>1 && varItem<=varRows,Set(varItem, varItem-1),
+                    varItem=1, Set(varItem, varRows)
+                    );
+                    Set(varStart, false);
+                    Reset(Timer2_2);
+                    Set(varStart, true)
+                X: =27
+                Y: =182
+                ZIndex: =5
+
+        Contact__1 As dataCard.blankCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =418
+            Width: =1366
+            X: =0
+            Y: =6
+            ZIndex: =3
+
+            Label2_24 As label:
+                Align: =Align.Center
+                Color: =RGBA(39, 67, 125, 1)
+                Fill: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =86
+                Size: =21
+                Text: ="Contact us"
+                Width: =201
+                X: =320
+                Y: =19
+                ZIndex: =2
+
+            Label3_7 As label:
+                Align: =Align.Center
+                Font: =Font.Arial
+                Height: =277
+                Size: =14
+                Text: |-
+                    ="
+                    For quick contact and SPOC for the
+                    Marketing - abc@zensar.com
+                    
+                    Software requirements - abc@zensar.com
+                    Hardware support - abc@zensar.com
+                    
+                    Admin - abc@zensar.com
+                    G&C - abc@zensar.com
+                    Training / Workshop / Mentoring programs - abc@zensar.com
+                    "
+                Width: =799
+                X: =21
+                Y: =81
+                ZIndex: =3
+
+            Image3_17 As image:
+                Height: =294
+                Image: =Polish_20221214_105741701
+                Width: =469
+                X: =897
+                Y: =44
+                ZIndex: =4
+
+        Links_1 As dataCard.blankCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =409
+            Width: =1366
+            X: =0
+            Y: =2
+            ZIndex: =4
+
+            "Gallery6 As gallery.'BrowseLayout_Vertical_TwoTextVariant_ver4.0'":
+                Fill: =RGBA(241, 244, 249, 1)
+                Height: =179
+                Items: |-
+                    =Table(
+                        {
+                            Name : "Associates",
+                            Count : "11000+"
+                        }, 
+                        {
+                            Name : "Problem statements",
+                            Count : "50+"
+                        },
+                        {
+                            Name : "Categories",
+                            Count : "20+"
+                        }
+                    
+                    )
+                Layout: =Layout.Vertical
+                ShowScrollbar: =false
+                TemplatePadding: =0
+                TemplateSize: =172
+                Transition: =Transition.Pop
+                Width: =918
+                WrapCount: |
+                    =3
+                X: =388
+                Y: =110
+                ZIndex: =1
+
+                Title6 As label:
+                    Align: =Align.Center
+                    Height: =67
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =26
+                    Text: =ThisItem.Count
+                    Width: =306
+                    ZIndex: =1
+
+                Subtitle6 As label:
+                    Align: =Align.Center
+                    FontWeight: =FontWeight.Semibold
+                    Height: =105
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =26
+                    Text: =ThisItem.Name
+                    Width: =306
+                    Y: =67
+                    ZIndex: =2
+
+            Timer1_1 As timer:
+                AutoPause: =false
+                AutoStart: =true
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(50, 86, 160, 1)
+                Duration: =1000
+                Fill: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: =0
+                HoverColor: =RGBA(50, 86, 160, 1)
+                HoverFill: =RGBA(255,255,255,1)
+                OnSelect: =true
+                OnTimerEnd: =Set(timeNow,Now())
+                PressedColor: =RGBA(50, 86, 160, 1)
+                PressedFill: =RGBA(255,255,255,1)
+                Repeat: =true
+                Reset: =true
+                Size: =15
+                Text: |-
+                    =DateDiff(timeNow,DateTime(2023,01,15,10,00,00),TimeUnit.Days)&" days"&" "&
+                    Text(Time(0,0,DateDiff(timeNow,DateTime(2023,01,15,10,00,00),TimeUnit.Seconds)),"hh:mm:ss")&" hours"
+                Visible: =
+                Width: =0
+                X: =41
+                Y: =289
+                ZIndex: =3
+
+            Button2_15 As button:
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(16, 0, 93, 1)
+                DisplayMode: |-
+                    =//If(LookUp(Info, 'Team Captain' = profileMail || 'Team Member 1' = profileMail || 'Team Member 2' = profileMail || 'Team Member 3' = profileMail || 'Team Member 4' = profileMail || 'Team Member 5' = profileMail || 'Team Member 6' = profileMail || 'Team Member 7' = profileMail || 'Mentor 1' = profileMail || 'Mentor 2' = profileMail, true) || LookUp(Mentor, Title = profileMail, true), DisplayMode.Disabled, DisplayMode.Edit);
+                    If(LookUp(ParticipantList,User().Email=Title,true)||LookUp(Mentor,User().Email=Title,true) || DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,DisplayMode.Disabled,DisplayMode.Edit)
+                Fill: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                Height: =84
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(255,255,255,1)
+                OnSelect: |-
+                    =Navigate('Mentor Registration');
+                    ResetForm(Form1_1)
+                PressedColor: =RGBA(0, 0, 0, 1)
+                PressedFill: =RGBA(255, 255, 255, 1)
+                Size: =17
+                Text: ="Interested in Mentoring?"
+                Underline: =true
+                Width: =300
+                X: =20
+                Y: =150
+                ZIndex: =6
+
+        About__1 As dataCard.blankCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(241, 244, 249, 1)
+            Height: =292
+            Width: =1366
+            X: =0
+            Y: =3
+            ZIndex: =5
+
+            Label2_22 As label:
+                Align: =Align.Center
+                Color: =RGBA(39, 67, 125, 1)
+                Fill: =RGBA(241, 244, 249, 0.3)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =48
+                Size: =21
+                Text: ="About Global Hackathon"
+                Width: =379
+                X: =232
+                Y: =33
+                ZIndex: =1
+
+            Label3_5 As label:
+                Align: =Align.Center
+                Font: =Font.Arial
+                Height: =154
+                Size: =14
+                Text: ="Global Hackathon is an initiative to provide associates with a platform to solve some of the pressing problems we face in our daily lives, and thus inculcate a culture of product innovation and a mindset of problem-solving. This edition will promote innovation out-of-the-box thinking in our associates, globally."
+                Width: =799
+                X: =22
+                Y: =81
+                ZIndex: =2
+
+            Image2_3 As image:
+                Height: =292
+                Image: =PngItem_4905098
+                Width: =376
+                X: =894
+                ZIndex: =3
+
+        "'Follow us__1' As dataCard.blankCard":
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(241, 244, 249, 1)
+            Height: =336
+            Width: =1366
+            X: =0
+            Y: =7
+            ZIndex: =6
+
+            Label2_25 As label:
+                Align: =Align.Center
+                Color: =RGBA(39, 67, 125, 1)
+                Fill: =RGBA(241, 244, 249, 0.3)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =53
+                Size: =21
+                Text: ="Follow us"
+                Width: =201
+                X: =320
+                Y: =26
+                ZIndex: =1
+
+            fb_2 As image:
+                Height: =93
+                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                Image: =Hotpot
+                OnSelect: |-
+                    =Launch("https://www.facebook.com/Zensar")
+                PressedBorderColor: =RGBA(0, 0, 0, 0)
+                Width: =117
+                X: =215
+                Y: =124
+                ZIndex: =2
+
+            insta__1 As image:
+                Height: =92
+                Image: ='Hotpot (1)'
+                OnSelect: |-
+                    =Launch("https://www.instagram.com/zensar.technologies")
+                Width: =150
+                X: =300
+                Y: =124
+                ZIndex: =3
+
+            twitter__1 As image:
+                Height: =92
+                Image: ='Hotpot (2)'
+                OnSelect: |-
+                    =Launch("https://twitter.com/Zensar")
+                Width: =127
+                X: =415
+                Y: =124
+                ZIndex: =4
+
+            Image8 As image:
+                Height: =330
+                Image: =PngItem_5109527
+                Width: =554
+                X: =799
+                Y: =6
+                ZIndex: =5
+
+            fb_3 As image:
+                Height: =99
+                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                Image: ='Hotpot (3)'
+                OnSelect: |-
+                    =Launch("https://in.linkedin.com/company/zensar")
+                PressedBorderColor: =RGBA(0, 0, 0, 0)
+                Width: =127
+                X: =515
+                Y: =124
+                ZIndex: =6
+
+        PreviousWinners_1 As dataCard.blankCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(241, 244, 249, 1)
+            Height: =221
+            Width: =1366
+            X: =0
+            Y: =5
+            ZIndex: =7
+
+            Image3_16 As image:
+                Height: =257
+                Image: ='hand-drawn-abstract-cartoon-modern-graphic-illustrations_200084-120'
+                Width: =545
+                X: =821
+                Y: =6
+                ZIndex: =1
+
+            Label2_23 As label:
+                Align: =Align.Center
+                Color: =RGBA(39, 67, 125, 1)
+                Fill: =RGBA(241, 244, 249, 0.3)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =75
+                Size: =21
+                Text: ="Previous winners"
+                Width: =281
+                X: =293
+                Y: =6
+                ZIndex: =2
+
+            Label3_6 As label:
+                Align: =Align.Center
+                Font: =Font.Arial
+                Height: =70
+                Size: =14
+                Text: ="The winners for the last hackathon have been announced. Do you have what it takes to be one of them? Check out their submissions and find out"
+                Width: =799
+                X: =22
+                Y: =81
+                ZIndex: =3
+
+            Button2_17 As button:
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(0, 0, 0, 1)
+                Fill: =RGBA(0, 0, 0, 0)
+                Font: =Font.Arial
+                Height: =58
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(255,255,255,1)
+                OnSelect: |-
+                    =Launch("https://zensar-my.sharepoint.com/:x:/p/srividya_g/EY3puPQkMIVJjU44pPsaLhIBtGC5LNLMnhsRoHNZXdpBcA?e=AfSVz9&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiIyNy8yMzAxMDUwNTYwMCIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D")
+                PressedColor: =RGBA(0, 0, 0, 1)
+                PressedFill: =RGBA(255, 255, 255, 1)
+                Size: =14
+                Text: ="Click here to see the previous hackathon result"
+                Underline: =true
+                Width: =681
+                X: =81
+                Y: =151
+                ZIndex: =4
+
+        LeaderBoard_1 As dataCard.blankCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =200
+            Width: =1366
+            X: =0
+            Y: =4
+            ZIndex: =8
+
+            Label2_26 As label:
+                Align: =Align.Center
+                Color: =RGBA(39, 67, 125, 1)
+                Fill: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =35
+                Size: =21
+                Text: ="Leaderboard"
+                Width: =243
+                X: =302
+                Y: =16
+                ZIndex: =1
+
+            Label3_8 As label:
+                Align: =Align.Center
+                Font: =Font.Arial
+                Height: =52
+                Size: =14
+                Text: ="Go through the leaderboard to check the top 20 scorers"
+                Width: =501
+                X: =173
+                Y: =51
+                ZIndex: =2
+
+            Button2_18 As button:
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(0, 0, 0, 1)
+                Fill: =RGBA(0, 0, 0, 0)
+                Font: =Font.Arial
+                Height: =58
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(255,255,255,1)
+                OnSelect: =Navigate(Leaderboard)
+                PressedColor: =RGBA(0, 0, 0, 1)
+                PressedFill: =RGBA(255, 255, 255, 1)
+                Size: =14
+                Text: ="Click here to see the leaderboard"
+                Underline: =true
+                Width: =681
+                X: =70
+                Y: =90
+                ZIndex: =3
+
+            Image5 As image:
+                Height: =147
+                Image: =leaderboard
+                Width: =195
+                X: =1035
+                Y: =16
+                ZIndex: =4
+
+        Timer_1 As dataCard.blankCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(241, 244, 249, 1)
+            Height: =230
+            Visible: =true
+            Width: =1366
+            X: =0
+            Y: =1
+            ZIndex: =9
+
+            Label5_4 As label:
+                Align: =Align.Center
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =53
+                Size: =25
+                Text: ="HACKATHON STARTS IN"
+                Visible: |-
+                    =If(DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,
+                    false,true)
+                Width: =544
+                X: =82
+                Y: =8
+                ZIndex: =2
+
+            Button2_16 As button:
+                DisplayMode: =
+                Fill: =RGBA(180, 30, 38, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Normal
+                Height: =73
+                HoverFill: =ColorFade(RGBA(180, 30, 38, 1), -20%)
+                OnSelect: |
+                    =//If(LookUp(ParticipantList,User().Email=Title,true),If(LookUp(ParticipantList,User().Email=Title,ParticiptionRole)="Team Captain",Navigate(Profile),Navigate('Team Member Profile')),Navigate(Registration));
+                    ResetForm(Form1_2);
+                    If(LookUp(ParticipantList,User().Email=Title,true)||LookUp(Mentor,User().Email=Title,true),Navigate(Profile),Navigate(Registration));
+                    If(LookUp(Info,'Team Captain'=Office365Users.MyProfile().Mail,true),Set(isTeamCaptain,true),Set(isTeamCaptain,false));
+                PressedColor: =RGBA(255,255,255,1)
+                PressedFill: =RGBA(180, 30, 38, 1)
+                Size: =21
+                Text: ="Apply Now"
+                Visible: |
+                    =If(DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,
+                    false,true)
+                Width: =292
+                X: =945
+                Y: =86
+                ZIndex: =12
+
+            Label35 As label:
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =43
+                Size: =25
+                Text: ="HACKATHON IS LIVE"
+                Visible: |-
+                    =If(DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,
+                    true,false)
+                Width: =374
+                X: =500
+                Y: =40
+                ZIndex: =13
+
+            Group2 As group:
+                Height: =5
+                Width: =5
+                X: =40
+                Y: =40
+                ZIndex: =13
+
+                Rectangle1 As rectangle:
+                    BorderColor: =RGBA(0, 18, 107, 0.1)
+                    Fill: =RGBA(0, 0, 0, 0.7)
+                    Height: =105
+                    Visible: |-
+                        =If(DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,
+                        false,true)
+                    Width: =550
+                    X: =82
+                    Y: =83
+                    ZIndex: =3
+
+                Label27 As label:
+                    Align: =Align.Center
+                    Color: =RGBA(255, 255, 255, 1)
+                    Font: =Font.'Lato Black'
+                    FontWeight: =FontWeight.Bold
+                    Height: =30
+                    Size: =30
+                    Text: =DateDiff(timeNow,endDate,TimeUnit.Days)
+                    Visible: |-
+                        =If(DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,
+                        false,true)
+                    Width: =62
+                    X: =124
+                    Y: =102
+                    ZIndex: =4
+
+                Label27_1 As label:
+                    Align: =Align.Center
+                    Color: =RGBA(255, 255, 255, 1)
+                    Font: =Font.'Lato Black'
+                    Height: =30
+                    Size: =30
+                    Text: =Text(Time(0,0,DateDiff(timeNow,endDate,TimeUnit.Seconds)),"hh")
+                    Visible: |-
+                        =If(DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,
+                        false,true)
+                    Width: =101
+                    X: =233
+                    Y: =102
+                    ZIndex: =5
+
+                Label27_4 As label:
+                    Align: =Align.Center
+                    Color: =RGBA(255, 255, 255, 1)
+                    Font: =Font.'Lato Black'
+                    Height: =30
+                    Size: =30
+                    Text: =Text(Minute(Time(0,0,DateDiff(timeNow,endDate,TimeUnit.Seconds))),"00")
+                    Visible: |-
+                        =If(DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,
+                        false,true)
+                    Width: =131
+                    X: =342
+                    Y: =102
+                    ZIndex: =6
+
+                Label27_5 As label:
+                    Align: =Align.Center
+                    Color: =RGBA(255, 255, 255, 1)
+                    Font: =Font.'Lato Black'
+                    Height: =30
+                    Size: =30
+                    Text: =Text(Time(0,0,DateDiff(timeNow,endDate,TimeUnit.Seconds)),"ss")
+                    Visible: |-
+                        =If(DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,
+                        false,true)
+                    Width: =131
+                    X: =451
+                    Y: =102
+                    ZIndex: =7
+
+                Label27_6 As label:
+                    Align: =Align.Center
+                    Color: =RGBA(255, 255, 255, 1)
+                    Font: =Font.'Lato Black'
+                    Height: =30
+                    Text: ="Days"
+                    Visible: |-
+                        =If(DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,
+                        false,true)
+                    Width: =131
+                    X: =88
+                    Y: =159
+                    ZIndex: =8
+
+                Label27_7 As label:
+                    Align: =Align.Center
+                    Color: =RGBA(255, 255, 255, 1)
+                    Font: =Font.'Lato Black'
+                    Height: =30
+                    Text: ="Hours"
+                    Visible: |-
+                        =If(DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,
+                        false,true)
+                    Width: =131
+                    X: =219
+                    Y: =159
+                    ZIndex: =9
+
+                Label27_8 As label:
+                    Align: =Align.Center
+                    Color: =RGBA(255, 255, 255, 1)
+                    Font: =Font.'Lato Black'
+                    Height: =30
+                    Text: ="Minutes"
+                    Visible: |-
+                        =If(DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,
+                        false,true)
+                    Width: =131
+                    X: =338
+                    Y: =159
+                    ZIndex: =10
+
+                Label27_9 As label:
+                    Align: =Align.Center
+                    Color: =RGBA(255, 255, 255, 1)
+                    Font: =Font.'Lato Black'
+                    Height: =30
+                    Text: ="Seconds"
+                    Visible: |-
+                        =If(DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,
+                        false,true)
+                    Width: =131
+                    X: =453
+                    Y: =159
+                    ZIndex: =11
+
+            Button16 As button:
+                Fill: =RGBA(180, 30, 35, 1)
+                Height: =72
+                OnSelect: |-
+                    =If(LookUp(ParticipantList,User().Email=Title,true)||LookUp(Mentor,User().Email=Title,true),Navigate(Profile),Notify("You have not registered for this Hackathon"));
+                    If(LookUp(Info,'Team Captain'=Office365Users.MyProfile().Mail,true),Set(isTeamCaptain,true),Set(isTeamCaptain,false));
+                Text: ="Go to Profile"
+                Visible: |-
+                    =If(DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,
+                    true,false)
+                Width: =207
+                X: =560
+                Y: =100
+                ZIndex: =14
+
+    Timer2_2 As timer:
+        AutoPause: =false
+        AutoStart: =true
+        Duration: =6000
+        Height: =0
+        OnTimerEnd: |-
+            =If(
+            varItem>0 && varItem<varRows, Set(varItem, varItem+1),
+            varItem=varRows, Set(varItem, 1)
+            )
+        OnTimerStart: =
+        Repeat: =true
+        Start: =varStart
+        Visible: =false
+        Width: =0
+        X: =615
+        Y: =24
+        ZIndex: =2
+
+    Button5_15 As button:
+        Color: =RGBA(0, 0, 0, 0)
+        Fill: =RGBA(0, 0, 0, 0)
+        Height: =99
+        HoverColor: =RGBA(0, 0, 0, 0)
+        HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+        OnSelect: =Navigate(Profile)
+        Text: ="Button"
+        Width: =92
+        X: =1240
+        ZIndex: =3
+
+    FAQs_2 As button:
+        AutoDisableOnSelect: =false
+        BorderColor: =
+        BorderStyle: =BorderStyle.None
+        DisabledBorderColor: =
+        DisabledColor: =
+        DisabledFill: =
+        Fill: =RGBA(0, 0, 0, 1)
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Normal
+        Height: =100
+        HoverBorderColor: =
+        HoverFill: =
+        OnSelect: |-
+            =Launch("https://zensar-my.sharepoint.com/:w:/p/a_ishant/EUJrBSTFjxBChrcb1c5pJoYBvLCH1ckrbqiLQhW87CEqXw?e=bIHymi")
+        PressedBorderColor: =
+        PressedColor: =RGBA(255, 255, 255, 1)
+        PressedFill: =
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =21
+        Text: ="FAQs"
+        Width: =170
+        X: =305
+        ZIndex: =18
+
+    "'Burger Menu_13' As group":
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =20
+
+        Rectangle9_13 As rectangle:
+            Fill: =RGBA(128, 128, 128, 0.7)
+            Height: =668
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =1366
+            Y: =100
+            ZIndex: =10
+
+        Rectangle10_13 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Height: =668
+            Visible: =showBurgerMenu
+            Width: =305
+            Y: =99
+            ZIndex: =11
+
+        Button13_48 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                If(LookUp(ParticipantList,User().Email=Title,true)||LookUp(Mentor,User().Email=Title,true),Navigate(Profile),If(DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,
+                Notify("You have not registered for this hackathon"),Navigate(Registration)));
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Profile"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =99
+            Y: =121
+            ZIndex: =13
+
+        Button13_49 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |
+                =Set(showBurgerMenu, false);
+                If(LookUp(ParticipantList,User().Email=Title,true)||LookUp(Mentor,User().Email=Title,true),Navigate('Question List'),If(DateDiff(timeNow,endDate,TimeUnit.Seconds)<=0,
+                Notify("You have not registered for this hackathon"),Navigate('Question List')));
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Problem Statements"
+            Visible: =showBurgerMenu
+            Width: =251
+            X: =27
+            Y: =175
+            ZIndex: =14
+
+    Navbar_13 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =32
+
+        Rectangle4_13 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Width: =1366
+            ZIndex: =4
+
+        Image3_15 As image:
+            Height: =80
+            Image: =Office365Users.UserPhotoV2(Office365Users.MyProfile().Id)
+            OnSelect: =Navigate(Profile)
+            RadiusBottomLeft: =80
+            RadiusBottomRight: =80
+            RadiusTopLeft: =80
+            RadiusTopRight: =80
+            Width: =80
+            X: =1246
+            Y: =10
+            ZIndex: =5
+
+        Label14_13 As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =45
+            Size: =16
+            Text: =Office365Users.MyProfile().DisplayName
+            Width: =253
+            X: =982
+            ZIndex: =6
+
+        Label15_14 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =45
+            Size: =14
+            Text: =Office365Users.MyProfile().JobTitle
+            Width: =265
+            X: =970
+            Y: =45
+            ZIndex: =7
+
+        Image1_13 As image:
+            Image: =Zensar_logo_wht_png
+            Width: =170
+            X: =135
+            ZIndex: =8
+
+        Icon10_13 As icon.Hamburger:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Hamburger
+            OnSelect: =Set(showBurgerMenu, true)
+            Visible: =!showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =9
+
+        Icon11_13 As icon.Cancel:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Cancel
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =16
+
+        Button5_16 As button:
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =99
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+            Text: ="Button"
+            Width: =92
+            X: =1240
+            ZIndex: =17
+

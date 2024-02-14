@@ -1,0 +1,395 @@
+"'Question List' As screen":
+    OnVisible: |+
+        =Set(showBurgerMenu, false);
+        Reset(Dropdown3);
+        Reset(Dropdown2);
+        Reset(TextInput1)
+        
+
+    "Gallery1_2 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        Height: =384
+        Items: =Search(Filter(QuestionList,Category=Dropdown3.Selected.Result || Dropdown3.Selected.Result=Blank(),'Sub-Category'=Dropdown2.Selected.Result ||Dropdown2.Selected.Result=Blank()),TextInput1.Text,"Title","Category","Sub_x002d_Category")
+        Layout: =Layout.Vertical
+        TemplatePadding: =0
+        TemplateSize: =74
+        Transition: =Transition.Pop
+        Width: =1203
+        X: =81
+        Y: =384
+        ZIndex: =1
+
+        Separator1_2 As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+        Label1_3 As label:
+            Align: =Align.Center
+            Font: =Font.Arial
+            Height: =66
+            OnSelect: =Select(Parent)
+            Size: =16
+            Text: =ThisItem.Title
+            Width: =721
+            X: =225
+            Y: =8
+            ZIndex: =6
+
+        Label2_16 As label:
+            Align: =Align.Center
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Semibold
+            Height: =71
+            OnSelect: =Select(Parent)
+            Size: =16
+            Text: =ThisItem.ID
+            Width: =75
+            X: =43
+            Y: =2
+            ZIndex: =7
+
+        Icon9 As icon.ChevronRight:
+            Height: =40
+            Icon: =Icon.ChevronRight
+            OnSelect: |-
+                =Set(label, ThisItem);
+                Navigate('Question Description');
+            Width: =40
+            X: =1054
+            Y: =17
+            ZIndex: =8
+
+    Rectangle2_4 As rectangle:
+        Fill: =RGBA(180, 30, 38, 1)
+        Height: =52
+        Width: =1203
+        X: =81
+        Y: =332
+        ZIndex: =7
+
+    Label3_2 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Semibold
+        Height: =52
+        Size: =18
+        Text: ="Question Number"
+        Width: =224
+        X: =81
+        Y: =332
+        ZIndex: =8
+
+    Label4_1 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Semibold
+        Height: =52
+        Size: =18
+        Text: ="Title"
+        Width: =82
+        X: =644
+        Y: =332
+        ZIndex: =9
+
+    Label4_5 As label:
+        Align: =Align.Center
+        Font: =Font.Arial
+        Height: =44
+        Size: =24
+        Text: ="Question List"
+        Width: =220
+        X: =575
+        Y: =136
+        ZIndex: =25
+
+    TextInput1 As text:
+        Default: =""
+        Font: =Font.Arial
+        HintText: ="Search text"
+        X: =964
+        Y: =275
+        ZIndex: =26
+
+    Label3 As label:
+        Align: =Align.Center
+        Font: =Font.Arial
+        Size: =14
+        Text: |-
+            ="Search :"
+        X: =814
+        Y: =275
+        ZIndex: =27
+
+    Icon8_4 As icon.BackArrow:
+        Height: =50
+        Icon: =Icon.BackArrow
+        OnSelect: =If(LookUp(ParticipantList,User().Email=Title,true)||LookUp(Mentor,User().Email=Title,true),Navigate(Profile),Navigate(Registration));
+        Width: =50
+        X: =48
+        Y: =133
+        ZIndex: =30
+
+    category As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =31
+
+        Dropdown3 As dropdown:
+            AllowEmptySelection: =true
+            BorderColor: =RGBA(56, 96, 178, 1)
+            ChevronBackground: =RGBA(180, 30, 38, 1)
+            ChevronHoverBackground: =ColorFade(RGBA(57, 86, 165, 1), -20%)
+            Default: ="All"
+            DisabledColor: =RGBA(255, 255, 255, 1)
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            HoverFill: =RGBA(57, 86, 165, 1)
+            Items: |-
+                =ForAll(Distinct(QuestionList,Category), {Result: ThisRecord.Value})
+            SelectionFill: =RGBA(180, 30, 38, 1)
+            Width: =333
+            X: =207
+            Y: =222
+            ZIndex: =6
+
+        Icon3_18 As icon.Cancel:
+            Height: =40
+            Icon: =Icon.Cancel
+            OnSelect: =Reset(Dropdown3)
+            Width: =54
+            X: =537
+            Y: =222
+            ZIndex: =14
+
+        Label5 As label:
+            Align: =Align.Center
+            Font: =Font.Arial
+            Text: ="Category"
+            Width: =126
+            X: =81
+            Y: =222
+            ZIndex: =28
+
+    subcategory As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =31
+
+        Dropdown2 As dropdown:
+            AllowEmptySelection: =true
+            ChevronBackground: =RGBA(180, 30, 38, 1)
+            Default: ="All"
+            Font: =Font.Arial
+            Items: |-
+                =ForAll(Distinct(QuestionList,'Sub-Category'), {Result: ThisRecord.Value})
+            SelectionFill: =RGBA(180, 30, 38, 1)
+            Width: =333
+            X: =207
+            Y: =275
+            ZIndex: =5
+
+        Icon4_1 As icon.Cancel:
+            Height: =40
+            Icon: =Icon.Cancel
+            OnSelect: =Reset(Dropdown2)
+            Width: =49
+            X: =537
+            Y: =275
+            ZIndex: =15
+
+        Label5_1 As label:
+            Align: =Align.Center
+            Font: =Font.Arial
+            Text: ="Sub-Category"
+            Width: =126
+            X: =81
+            Y: =275
+            ZIndex: =29
+
+    "'Burger Menu_4' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =43
+
+        Rectangle9_4 As rectangle:
+            Fill: =RGBA(128, 128, 128, 0.7)
+            Height: =668
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =1366
+            Y: =100
+            ZIndex: =37
+
+        Rectangle10_4 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Height: =668
+            Visible: =showBurgerMenu
+            Width: =305
+            Y: =99
+            ZIndex: =38
+
+        Button13_19 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate(Home)
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Home"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =123
+            ZIndex: =39
+
+        Button13_18 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                If(LookUp(ParticipantList,User().Email=Title,true)||LookUp(Mentor,User().Email=Title,true),Navigate(Profile),Navigate(Registration));
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Profile"
+            Visible: =showBurgerMenu
+            Width: =107
+            X: =90
+            Y: =178
+            ZIndex: =40
+
+        Button13_17 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Question List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Problem Statements"
+            Visible: =showBurgerMenu
+            Width: =251
+            X: =27
+            Y: =233
+            ZIndex: =41
+
+        Button13_16 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Font: =Font.Arial
+            HoverFill: =ColorFade(RGBA(0, 0, 0, 1), -20%)
+            OnSelect: |-
+                =Set(showBurgerMenu, false);
+                Navigate('Submitted List')
+            PressedFill: |-
+                =/*Self.Color*/
+                RGBA(0,0,0,1)
+            Text: ="Submissions"
+            Visible: |-
+                =//showBurgerMenu
+                If(LookUp(ParticipantList,User().Email=Title,true)||LookUp(Mentor,User().Email=Title,true),showBurgerMenu)
+            Width: =148
+            X: =69
+            Y: =292
+            ZIndex: =42
+
+    Navbar_4 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =46
+
+        Rectangle4_4 As rectangle:
+            Fill: =RGBA(0, 0, 0, 1)
+            Width: =1366
+            ZIndex: =31
+
+        Image3_4 As image:
+            Height: =80
+            Image: =Office365Users.UserPhotoV2(Office365Users.MyProfile().Id)
+            OnSelect: =Navigate(Profile)
+            RadiusBottomLeft: =80
+            RadiusBottomRight: =80
+            RadiusTopLeft: =80
+            RadiusTopRight: =80
+            Width: =80
+            X: =1246
+            Y: =10
+            ZIndex: =32
+
+        Label14_5 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =49
+            Size: =16
+            Text: =Office365Users.MyProfile().DisplayName
+            Width: =145
+            X: =1030
+            ZIndex: =33
+
+        Label15_5 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.Arial
+            Height: =45
+            Size: =14
+            Text: =Office365Users.MyProfile().JobTitle
+            Width: =265
+            X: =970
+            Y: =45
+            ZIndex: =34
+
+        Image1_4 As image:
+            Image: =Zensar_logo_wht_png
+            OnSelect: =Navigate(Home)
+            Width: =170
+            X: =135
+            ZIndex: =35
+
+        Icon10_4 As icon.Hamburger:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Hamburger
+            OnSelect: =Set(showBurgerMenu, true)
+            Visible: =!showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =36
+
+        Icon11_4 As icon.Cancel:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =52
+            Icon: =Icon.Cancel
+            OnSelect: =Set(showBurgerMenu, false)
+            Visible: =showBurgerMenu
+            Width: =54
+            X: =36
+            Y: =24
+            ZIndex: =44
+
+        Button5_6 As button:
+            Color: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =99
+            HoverColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+            OnSelect: =If(LookUp(ParticipantList,User().Email=Title,true)||LookUp(Mentor,User().Email=Title,true),Navigate(Profile),Navigate(Registration));
+            Text: ="Button"
+            Width: =92
+            X: =1240
+            ZIndex: =45
+
